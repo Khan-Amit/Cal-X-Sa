@@ -1,0 +1,76 @@
+
+## File 4: `data/bangladesh.json` (Complete dataset from your JSON)
+
+```json
+{
+  "metadata": {
+    "title": "Bangladesh Income Tax Database",
+    "authority": "National Board of Revenue (NBR), Bangladesh",
+    "legislation": "Income Tax Act 2023 & Finance Ordinance 2025",
+    "fiscal_year": "2024-25",
+    "assessment_year": "2025-26",
+    "currency": "BDT",
+    "last_updated": "2025-06-22",
+    "source": "Finance Ordinance 2025, NBR Bangladesh",
+    "website": "https://nbr.gov.bd"
+  },
+  "individual_income_tax": {
+    "description": "Progressive income tax for resident individual taxpayers",
+    "tax_free_thresholds": {
+      "general": 350000,
+      "women_and_senior_65_plus": 400000,
+      "third_gender_hijra": 475000,
+      "person_with_disability": 475000,
+      "gazetted_freedom_fighter": 500000
+    },
+    "tax_slabs": [
+      { "upTo": 350000, "rate": 0 },
+      { "upTo": 450000, "rate": 0.05 },
+      { "upTo": 850000, "rate": 0.10 },
+      { "upTo": 1350000, "rate": 0.15 },
+      { "upTo": 1850000, "rate": 0.20 },
+      { "upTo": 3850000, "rate": 0.25 },
+      { "upTo": null, "rate": 0.30 }
+    ],
+    "minimum_tax_floor": 5000,
+    "non_resident_tax_rate": 0.30
+  },
+  "investment_tax_rebate": {
+    "rate": 0.15,
+    "max_cap": 1000000
+  },
+  "corporate_income_tax": {
+    "publicly_traded": 0.225,
+    "non_publicly_traded": 0.25,
+    "bank_listed": 0.375,
+    "bank_unlisted": 0.40,
+    "tobacco_listed": 0.45,
+    "tobacco_unlisted": 0.475
+  },
+  "vat": {
+    "standard_rate": 0.15,
+    "registration_threshold": 3000000,
+    "reduced_rates": {
+      "restaurant": 0.05,
+      "retail_non_ac": 0.04,
+      "retail_ac": 0.075,
+      "construction": 0.075
+    },
+    "exempt_sectors": [
+      "Basic food items",
+      "Medical services",
+      "Education",
+      "Agricultural inputs",
+      "IT services"
+    ]
+  },
+  "withholding_tax": {
+    "salary": "progressive",
+    "dividends": 0.10,
+    "bank_interest": 0.10,
+    "contractor_up_to_500k": 0.02,
+    "contractor_above_500k": 0.05,
+    "commission": 0.10,
+    "royalties": 0.10
+  }
+}
