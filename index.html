@@ -1,1 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cal-X-Sa™ — Global Tax Calculator | Bangladesh · Canada · India · Thailand</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg: #0d1f17; --bg2: #122318; --bg3: #1a3025;
+  --green: #1e4d30; --green-mid: #2a6b40; --green-lite: #3d9e60;
+  --accent: #5ecf82; --gold: #c9a84c; --white: #f4f7f4;
+  --cell-bg: #ffffff; --cell-text: #111111;
+  --border: rgba(94,207,130,0.18); --muted: rgba(244,247,244,0.45);
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --nav-h: 64px;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--white);min-height:100vh}
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);
+  background:rgba(13,31,23,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;
+  justify-content:space-between;padding:0 2rem;
+}
+.nav-logo{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--white)}
+.nav-logo span{color:var(--accent);font-size:0.7em}
+.nav-links a{color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:8px;margin:0 2px}
+.nav-links a:hover{color:var(--accent);background:rgba(94,207,130,0.08)}
+.nav-cta{background:var(--green-mid);color:var(--white)!important;border-radius:8px;padding:7px 18px!important}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--nav-h) + 3rem) 1.5rem 4rem}
+.hero h1{font-family:var(--font-display);font-size:clamp(3rem,9vw,7rem);font-weight:700;color:var(--white)}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero-sub{color:var(--muted);max-width:560px;margin:1rem auto}
+.btn-primary{background:var(--accent);color:var(--bg);padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:700}
+.btn-outline{background:transparent;color:var(--white);padding:14px 32px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.2);text-decoration:none}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;flex-wrap:wrap;justify-content:center}
+.hero-stat .num{font-family:var(--font-mono);font-size:1.8rem;color:var(--accent)}
+section{padding:5rem 1.5rem;max-width:1200px;margin:0 auto}
+.sec-label{color:var(--accent);font-size:0.7rem;letter-spacing:3px;text-transform:uppercase}
+.sec-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);color:var(--white)}
+.country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:2rem}
+.country-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.25rem;cursor:pointer}
+.country-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.country-flag{font-size:2rem}
+.country-name{font-weight:600}
+.tax-panel{background:var(--bg2);border-radius:20px;padding:2rem;margin:2rem 0;border:1px solid var(--border)}
+.income-input{width:100%;padding:1rem;background:rgba(255,255,255,0.1);border:1px solid var(--border);border-radius:12px;color:var(--white);font-size:1.2rem;margin:1rem 0}
+.tax-result{background:rgba(0,0,0,0.3);border-radius:16px;padding:1.5rem;margin:1rem 0}
+.tax-row{display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--border)}
+.download-btn{background:var(--accent);color:var(--bg);border:none;padding:12px 24px;border-radius:40px;font-weight:700;cursor:pointer;width:100%;margin-top:1rem}
+footer{background:var(--bg2);text-align:center;padding:2rem;color:var(--muted)}
+@media(max-width:768px){.hero-stats{gap:1rem}.country-grid{grid-template-columns:1fr 1fr}nav{padding:0 1rem}}
+</style>
+</head>
+<body>
 
+<nav>
+  <div class="nav-logo">Cal-X-Sa™ <span>| Global Tax</span></div>
+  <div class="nav-links">
+    <a href="#explore">Countries</a>
+    <a href="#features">Features</a>
+    <a href="#" class="nav-cta">Download Data →</a>
+  </div>
+</nav>
+
+<div id="landing">
+  <div class="hero">
+    <h1>Cal-Ex <em>Tax.</em></h1>
+    <p class="hero-sub">Off-grid stand alone calculator — income tax, VAT, and trade data. Click a country. Get the numbers.</p>
+    <div class="hero-btns">
+      <a href="#explore" class="btn-primary">🌍 Explore Countries</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">4</span><span class="lbl">Countries Live</span></div>
+      <div class="hero-stat"><span class="num">80</span><span class="lbl">Coming Soon</span></div>
+      <div class="hero-stat"><span class="num">Free</span><span class="lbl">Always Open</span></div>
+    </div>
+  </div>
+
+  <section id="features">
+    <div class="sec-label">What's Inside</div>
+    <div class="sec-title">Tax data that <em style="color:var(--accent)">works offline.</em></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:2rem">
+      <div style="background:var(--bg2);padding:1.5rem;border-radius:16px"><h3>💰 Income Tax</h3><p>Progressive brackets for Bangladesh, Canada, India, Thailand</p></div>
+      <div style="background:var(--bg2);padding:1.5rem;border-radius:16px"><h3>📊 Real-time</h3><p>Change income → see tax update instantly</p></div>
+      <div style="background:var(--bg2);padding:1.5rem;border-radius:16px"><h3>⬇️ Download</h3><p>Save any calculation as standalone HTML</p></div>
+    </div>
+  </section>
+
+  <section id="explore">
+    <div class="sec-label">Tax Calculator</div>
+    <div class="sec-title">Pick a country.<br>Enter income.</div>
+    
+    <div class="tax-panel">
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem" id="countryButtons">
+        <button data-country="bangladesh" class="country-btn" style="background:var(--green-mid);border:none;padding:10px 20px;border-radius:40px;color:white;cursor:pointer">🇧🇩 Bangladesh</button>
+        <button data-country="canada" class="country-btn" style="background:var(--bg3);border:none;padding:10px 20px;border-radius:40px;color:white;cursor:pointer">🇨🇦 Canada</button>
+        <button data-country="india" class="country-btn" style="background:var(--bg3);border:none;padding:10px 20px;border-radius:40px;color:white;cursor:pointer">🇮🇳 India</button>
+        <button data-country="thailand" class="country-btn" style="background:var(--bg3);border:none;padding:10px 20px;border-radius:40px;color:white;cursor:pointer">🇹🇭 Thailand</button>
+      </div>
+      
+      <label>💰 Annual Income</label>
+      <input type="number" id="incomeInput" class="income-input" value="750000" step="10000">
+      
+      <div class="tax-result" id="taxResult">
+        <!-- Dynamic content -->
+      </div>
+      
+      <button class="download-btn" id="downloadBtn">📄 Download as HTML file</button>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p>Cal-X-Sa™ — Off-grid stand alone calculator | Data: NBR Bangladesh, CRA Canada, CBDT India, Thai Revenue Department</p>
+</footer>
+
+<script>
+// =============================================
+// COMPLETE TAX DATA FOR 4 COUNTRIES
+// =============================================
+const TAX_DATA = {
+  bangladesh: {
+    name: "Bangladesh",
+    currency: "BDT",
+    symbol: "৳",
+    note: "Individual income tax rates AY 2025-26 (up to 30%)",
+    brackets: [
+      { upTo: 350000, rate: 0 },
+      { upTo: 450000, rate: 0.05 },
+      { upTo: 850000, rate: 0.10 },
+      { upTo: 1350000, rate: 0.15 },
+      { upTo: 1850000, rate: 0.20 },
+      { upTo: 3850000, rate: 0.25 },
+      { upTo: Infinity, rate: 0.30 }
+    ]
+  },
+  canada: {
+    name: "Canada",
+    currency: "CAD",
+    symbol: "$",
+    note: "Federal tax brackets 2025 (simplified). Provincial tax extra.",
+    brackets: [
+      { upTo: 53359, rate: 0.15 },
+      { upTo: 106717, rate: 0.205 },
+      { upTo: 165430, rate: 0.26 },
+      { upTo: 235675, rate: 0.29 },
+      { upTo: Infinity, rate: 0.33 }
+    ]
+  },
+  india: {
+    name: "India",
+    currency: "INR",
+    symbol: "₹",
+    note: "New tax regime (default). 4% health & education cess not included.",
+    brackets: [
+      { upTo: 300000, rate: 0 },
+      { upTo: 600000, rate: 0.05 },
+      { upTo: 900000, rate: 0.10 },
+      { upTo: 1200000, rate: 0.15 },
+      { upTo: 1500000, rate: 0.20 },
+      { upTo: Infinity, rate: 0.30 }
+    ]
+  },
+  thailand: {
+    name: "Thailand",
+    currency: "THB",
+    symbol: "฿",
+    note: "Personal income tax brackets 2025 (progressive up to 35%)",
+    brackets: [
+      { upTo: 150000, rate: 0 },
+      { upTo: 300000, rate: 0.05 },
+      { upTo: 500000, rate: 0.10 },
+      { upTo: 750000, rate: 0.15 },
+      { upTo: 1000000, rate: 0.20 },
+      { upTo: 2000000, rate: 0.25 },
+      { upTo: 5000000, rate: 0.30 },
+      { upTo: Infinity, rate: 0.35 }
+    ]
+  }
+};
+
+let currentCountry = "bangladesh";
+
+function calculateTax(countryCode, income) {
+  let tax = 0;
+  let previousLimit = 0;
+  const brackets = TAX_DATA[countryCode].brackets;
+  
+  for (let i = 0; i < brackets.length; i++) {
+    const bracket = brackets[i];
+    const upperLimit = bracket.upTo;
+    const rate = bracket.rate;
+    const taxableInBracket = Math.max(0, Math.min(income, upperLimit) - previousLimit);
+    tax += taxableInBracket * rate;
+    previousLimit = upperLimit;
+    if (income <= upperLimit) break;
+  }
+  return tax;
+}
+
+function formatMoney(amount, countryCode) {
+  const symbol = TAX_DATA[countryCode].symbol;
+  return `${symbol} ${Math.round(amount).toLocaleString()}`;
+}
+
+function updateTaxDisplay() {
+  const incomeInput = document.getElementById("incomeInput");
+  let income = parseFloat(incomeInput.value);
+  if (isNaN(income) || income < 0) income = 0;
+  
+  const country = TAX_DATA[currentCountry];
+  const taxAmount = calculateTax(currentCountry, income);
+  const netIncome = income - taxAmount;
+  const effectiveRate = income > 0 ? (taxAmount / income) * 100 : 0;
+  
+  const resultDiv = document.getElementById("taxResult");
+  resultDiv.innerHTML = `
+    <div class="tax-row"><span>🌍 Country</span><span>${country.name} (${country.currency})</span></div>
+    <div class="tax-row"><span>💰 Gross Income</span><span>${formatMoney(income, currentCountry)}</span></div>
+    <div class="tax-row"><span>🧾 Income Tax</span><span style="color:#ffcc88">${formatMoney(taxAmount, currentCountry)}</span></div>
+    <div class="tax-row"><span>📊 Effective Rate</span><span>${effectiveRate.toFixed(2)}%</span></div>
+    <div class="tax-row"><span>✅ Net Income</span><span style="color:#5ecf82;font-weight:bold">${formatMoney(netIncome, currentCountry)}</span></div>
+    <div class="tax-row"><span>📌 Note</span><span style="font-size:0.8rem">${country.note}</span></div>
+  `;
+}
+
+function setActiveCountry(countryCode) {
+  currentCountry = countryCode;
+  const buttons = document.querySelectorAll(".country-btn");
+  buttons.forEach(btn => {
+    if (btn.getAttribute("data-country") === countryCode) {
+      btn.style.background = "var(--green-mid)";
+    } else {
+      btn.style.background = "var(--bg3)";
+    }
+  });
+  updateTaxDisplay();
+}
+
+function downloadAsHTML() {
+  const income = parseFloat(document.getElementById("incomeInput").value) || 0;
+  const country = TAX_DATA[currentCountry];
+  const tax = calculateTax(currentCountry, income);
+  const net = income - tax;
+  
+  const htmlContent = `<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Tax Report - ${country.name}</title>
+<style>
+body{font-family:sans-serif;background:#0d1f17;color:#fff;padding:2rem;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.card{background:#122318;border-radius:24px;padding:2rem;max-width:500px;width:100%;border:1px solid #2a6b40}
+h1{color:#5ecf82}hr{margin:1rem 0;border-color:#2a6b40}
+.row{display:flex;justify-content:space-between;margin:0.75rem 0;padding:0.5rem 0;border-bottom:1px dashed #2a6b40}
+.total{font-size:1.2rem;font-weight:bold;border-top:2px solid #ffcc88;border-bottom:none}
+.footer{margin-top:1.5rem;font-size:0.7rem;text-align:center;color:#6b8f7a}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>Cal-X-Sa™ Tax Report</h1>
+<p>Generated: ${new Date().toLocaleString()}</p>
+<hr>
+<div class="row"><span>🌍 Country</span><span>${country.name}</span></div>
+<div class="row"><span>💰 Gross Income</span><span>${country.symbol} ${income.toLocaleString()}</span></div>
+<div class="row"><span>🧾 Income Tax</span><span>${country.symbol} ${Math.round(tax).toLocaleString()}</span></div>
+<div class="row"><span>📊 Effective Rate</span><span>${income > 0 ? ((tax/income)*100).toFixed(2) : 0}%</span></div>
+<div class="row total"><span>✅ Net Income</span><span>${country.symbol} ${Math.round(net).toLocaleString()}</span></div>
+<hr>
+<div class="footer">Cal-X-Sa™ — Off-grid stand alone calculator | ${country.note}</div>
+</div>
+</body>
+</html>`;
+  
+  const blob = new Blob([htmlContent], { type: "text/html" });
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.href = url;
+  link.download = `tax_${country.name.toLowerCase()}_${Date.now()}.html`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}
+
+// Event listeners
+document.querySelectorAll(".country-btn").forEach(btn => {
+  btn.addEventListener("click", () => setActiveCountry(btn.getAttribute("data-country")));
+});
+document.getElementById("incomeInput").addEventListener("input", updateTaxDisplay);
+document.getElementById("downloadBtn").addEventListener("click", downloadAsHTML);
+
+// Initialize
+setActiveCountry("bangladesh");
+</script>
+</body>
+</html>
