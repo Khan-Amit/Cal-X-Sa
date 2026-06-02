@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Count It — World Demographics & Tax Platform | Bangladesh · India · Thailand</title>
+<title>Count It — World Demographics & Tax Platform | BD · IN · TH · CA</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -264,20 +264,20 @@ footer strong{color:var(--white)}
   </div>
 </div>
 
-<footer><strong>Count It</strong> — Open Data Platform for World Demographics & Tax<br>Data sources: World Bank · UN · Bangladesh NBR · India CBDT · Thai Revenue Department · Open source · MIT License</footer>
+<footer><strong>Count It</strong> — Open Data Platform for World Demographics & Tax<br>Data sources: World Bank · UN · Bangladesh NBR · India CBDT · Thai Revenue Department · Canada CRA · Open source · MIT License</footer>
 
 <script>
 const COUNTRIES = [
   { code:'BD', flag:'🇧🇩', name:'Bangladesh', pop:'173M', region:'South Asia', tags:['Tax DB','Demographics','Import'] },
   { code:'IN', flag:'🇮🇳', name:'India', pop:'1.48B', region:'South Asia', tags:['Income Tax','Demographics','GST'] },
   { code:'TH', flag:'🇹🇭', name:'Thailand', pop:'71.6M', region:'Southeast Asia', tags:['Income Tax','Demographics','VAT'] },
+  { code:'CA', flag:'🇨🇦', name:'Canada', pop:'40M', region:'North America', tags:['Income Tax','GST/HST','Demographics'] },
   { code:'PK', flag:'🇵🇰', name:'Pakistan', pop:'231M', region:'South Asia', tags:['Tax','Demographics'] },
   { code:'CN', flag:'🇨🇳', name:'China', pop:'1.41B', region:'East Asia', tags:['VAT','Trade'] },
-  { code:'US', flag:'🇺🇸', name:'United States', pop:'335M', region:'North America', tags:['Federal Tax'] },
-  { code:'CA', flag:'🇨🇦', name:'Canada', pop:'40M', region:'North America', tags:['GST/HST'] }
+  { code:'US', flag:'🇺🇸', name:'United States', pop:'335M', region:'North America', tags:['Federal Tax'] }
 ];
 
-// BANGLADESH DATA
+// ==================== BANGLADESH ====================
 const BD_DEMO = [['Total Population','173,000,000','2024','BBS'],['Male Population','86,500,000','2024','BBS'],['Female Population','86,500,000','2024','BBS'],['Literacy Rate','75.6%','2023','UNESCO'],['GDP per Capita','$2,688','2024','IMF']];
 const BD_RELIGION = [['Islam','91.0%','157M'],['Hinduism','7.9%','13.7M'],['Buddhism','0.6%','1.04M'],['Christianity','0.4%','692K']];
 const BD_ETHNIC = [['Bengali','98.0%','169.5M'],['Chakma','0.3%','519K'],['Marma','0.2%','346K']];
@@ -285,7 +285,7 @@ const BD_VAT = [['Standard Goods','15%','Standard','Most goods'],['Restaurants',
 const BD_FREIGHT = [['China→Bangladesh','Sea','14-18 days','$850-1,200'],['India→Bangladesh','Land','3-5 days','$500-800']];
 const BD_TAX_SLABS = { "2025-26": { thresholds:{ general:350000, women:400000, disabled:475000, freedom:500000 }, slabs:[{ label:'First 3,50,000', amt:350000, rate:0 },{ label:'Next 1,00,000', amt:100000, rate:5 },{ label:'Next 4,00,000', amt:400000, rate:10 },{ label:'Next 5,00,000', amt:500000, rate:15 },{ label:'Next 5,00,000', amt:500000, rate:20 },{ label:'Next 20,00,000', amt:2000000, rate:25 },{ label:'Balance', amt:Infinity, rate:30 }] }, "2026-27": { thresholds:{ general:375000, women:425000, disabled:500000, freedom:525000 }, slabs:[{ label:'First 3,75,000', amt:375000, rate:0 },{ label:'Next 3,00,000', amt:300000, rate:10 },{ label:'Next 4,00,000', amt:400000, rate:15 },{ label:'Next 5,00,000', amt:500000, rate:20 },{ label:'Next 20,00,000', amt:2000000, rate:25 },{ label:'Balance', amt:Infinity, rate:30 }] } };
 
-// INDIA DATA
+// ==================== INDIA ====================
 const IN_DEMO = [
   ['Total Population', '1,476,625,576', '2026', 'Census / UN'],
   ['Male Population', '761,120,000 (51.54%)', '2026', 'Census'],
@@ -312,7 +312,7 @@ const IN_TAX_DATA = {
   "old": { name: "Old Tax Regime", standard_deduction: 50000, rebate_limit: 500000, rebate_amount: 12500, slabs_general: [{ min: 0, max: 250000, rate: 0 },{ min: 250001, max: 500000, rate: 5 },{ min: 500001, max: 1000000, rate: 20 },{ min: 1000001, max: Infinity, rate: 30 }], slabs_senior: [{ min: 0, max: 300000, rate: 0 },{ min: 300001, max: 500000, rate: 5 },{ min: 500001, max: 1000000, rate: 20 },{ min: 1000001, max: Infinity, rate: 30 }] }
 };
 
-// THAILAND DATA
+// ==================== THAILAND ====================
 const TH_DEMO = [
   ['Total Population', '71,575,000', '2026', 'NSO Thailand'],
   ['Male Population', '34,910,000 (48.77%)', '2026', 'NSO'],
@@ -322,61 +322,85 @@ const TH_DEMO = [
   ['Median Age', '41.0 years', '2026', 'UN'],
   ['Urban Population', '38,300,000 (53.5%)', '2026', 'World Bank'],
   ['Rural Population', '33,275,000 (46.5%)', '2026', 'World Bank'],
-  ['Children (0-14 years)', '10,020,000 (14%)', '2026', 'NSO'],
-  ['Working Age (15-59)', '42,800,000 (59.8%)', '2026', 'NSO'],
-  ['Elderly (60+ years)', '18,755,000 (26.2%)', '2026', 'NSO'],
   ['Literacy Rate (Total)', '94.1%', '2021', 'UNESCO'],
-  ['Literacy Rate (Male)', '95.2%', '2021', 'UNESCO'],
-  ['Literacy Rate (Female)', '93.0%', '2021', 'UNESCO'],
-  ['Life Expectancy (Combined)', '76.1 years', '2026', 'WHO'],
-  ['Life Expectancy (Male)', '72.0 years', '2026', 'WHO'],
-  ['Life Expectancy (Female)', '80.2 years', '2026', 'WHO'],
+  ['Life Expectancy', '76.1 years', '2026', 'WHO'],
   ['Birth Rate (per 1000)', '5.7', '2026', 'UN'],
   ['Death Rate (per 1000)', '9.6', '2026', 'UN'],
-  ['Total Fertility Rate', '0.93', '2026', 'UN'],
-  ['Average Household Size', '2.9 persons', '2021', 'NSO'],
-  ['GDP per Capita (USD)', '$7,500', '2024', 'IMF']
+  ['Total Fertility Rate', '0.93', '2026', 'UN']
 ];
-const TH_RELIGION = [
-  ['Buddhism (Theravada)', '92.5%', '66,200,000'],
-  ['Islam', '5.4%', '3,865,000'],
-  ['Christianity', '1.2%', '859,000'],
-  ['Hinduism', '0.1%', '72,000'],
-  ['Other / None', '0.8%', '573,000']
-];
-const TH_ETHNIC = [
-  ['Thai (Central)', '36%', '25,767,000'],
-  ['Thai (Isan/Lao)', '33%', '23,620,000'],
-  ['Thai (Northern)', '9%', '6,442,000'],
-  ['Thai (Southern)', '8%', '5,726,000'],
-  ['Chinese', '11%', '7,873,000'],
-  ['Other (Malay, Khmer, etc.)', '3%', '2,147,000']
-];
-const TH_VAT = [
-  ['Standard Goods & Services', '7%', 'Standard', 'Most commercial transactions'],
-  ['Essential Items (Rice, milk, eggs)', '0%', 'Exempt', 'Basic food items'],
-  ['Exports', '0%', 'Zero-rated', 'No VAT on exports'],
-  ['Small Businesses', 'Exempt', 'Threshold', 'Turnover < 1.8M THB/year'],
-  ['Education & Healthcare', '0%', 'Exempt', 'Schools, hospitals']
-];
-const TH_FREIGHT = [
-  ['China→Thailand (Laem Chabang)', 'Sea', '7-10 days', '$600-1,000'],
-  ['Singapore→Thailand', 'Sea', '5-7 days', '$400-700'],
-  ['Japan→Thailand', 'Sea', '10-14 days', '$800-1,200'],
-  ['Domestic (Bangkok→Chiang Mai)', 'Land', '8-10 hours', '$500-800/truck']
-];
+const TH_RELIGION = [['Buddhism (Theravada)','92.5%','66.2M'],['Islam','5.4%','3.87M'],['Christianity','1.2%','859K'],['Hinduism','0.1%','72K'],['Other/None','0.8%','573K']];
+const TH_ETHNIC = [['Thai (Central)','36%','25.8M'],['Thai (Isan/Lao)','33%','23.6M'],['Thai (Northern)','9%','6.44M'],['Thai (Southern)','8%','5.73M'],['Chinese','11%','7.87M'],['Other','3%','2.15M']];
+const TH_VAT = [['Standard Goods & Services','7%','Standard','Most transactions'],['Essential Items','0%','Exempt','Rice, milk, eggs'],['Exports','0%','Zero-rated','No VAT'],['Education & Healthcare','0%','Exempt','Schools, hospitals']];
+const TH_FREIGHT = [['China→Thailand','Sea','7-10 days','$600-1,000'],['Singapore→Thailand','Sea','5-7 days','$400-700'],['Domestic (BKK→Chiang Mai)','Land','8-10 hours','$500-800']];
 const TH_TAX_SLABS = [
-  { min: 0, max: 150000, rate: 0 },
-  { min: 150001, max: 300000, rate: 5 },
-  { min: 300001, max: 500000, rate: 10 },
-  { min: 500001, max: 750000, rate: 15 },
-  { min: 750001, max: 1000000, rate: 20 },
-  { min: 1000001, max: 2000000, rate: 25 },
-  { min: 2000001, max: 5000000, rate: 30 },
-  { min: 5000001, max: Infinity, rate: 35 }
+  { min: 0, max: 150000, rate: 0 }, { min: 150001, max: 300000, rate: 5 },
+  { min: 300001, max: 500000, rate: 10 }, { min: 500001, max: 750000, rate: 15 },
+  { min: 750001, max: 1000000, rate: 20 }, { min: 1000001, max: 2000000, rate: 25 },
+  { min: 2000001, max: 5000000, rate: 30 }, { min: 5000001, max: Infinity, rate: 35 }
 ];
 const TH_PERSONAL_ALLOWANCE = 60000;
 const TH_EMPLOYMENT_DEDUCTION = { percent: 50, cap: 100000 };
+
+// ==================== CANADA ====================
+const CA_DEMO = [
+  ['Total Population', '40,000,000', '2024', 'Statistics Canada'],
+  ['Male Population', '19,800,000 (49.5%)', '2024', 'StatsCan'],
+  ['Female Population', '20,200,000 (50.5%)', '2024', 'StatsCan'],
+  ['Population Density', '4.2 per km²', '2024', 'StatsCan'],
+  ['Annual Growth Rate', '1.2%', '2024', 'StatsCan'],
+  ['Median Age', '41.6 years', '2024', 'StatsCan'],
+  ['Urban Population', '32,600,000 (81.5%)', '2024', 'World Bank'],
+  ['Rural Population', '7,400,000 (18.5%)', '2024', 'World Bank'],
+  ['Literacy Rate (Total)', '99%', '2020', 'UNESCO'],
+  ['Life Expectancy', '82.3 years', '2024', 'WHO'],
+  ['Birth Rate (per 1000)', '9.8', '2024', 'StatsCan'],
+  ['Death Rate (per 1000)', '8.6', '2024', 'StatsCan'],
+  ['Total Fertility Rate', '1.33', '2024', 'StatsCan'],
+  ['GDP per Capita (USD)', '$54,000', '2024', 'IMF']
+];
+const CA_RELIGION = [
+  ['Christianity (Total)', '53.3%', '21.3M'],
+  ['Irreligious / No Religion', '34.6%', '13.8M'],
+  ['Islam', '4.9%', '1.96M'],
+  ['Hinduism', '2.3%', '920K'],
+  ['Sikhism', '2.1%', '840K'],
+  ['Buddhism', '1.0%', '400K'],
+  ['Judaism', '0.8%', '320K'],
+  ['Indigenous Spirituality', '0.2%', '80K']
+];
+const CA_ETHNIC = [
+  ['European (British, French, German, Italian)', '52.5%', '21.0M'],
+  ['South Asian (Indian, Pakistani, Sri Lankan)', '7.1%', '2.8M'],
+  ['Chinese', '5.1%', '2.0M'],
+  ['Black', '4.3%', '1.7M'],
+  ['Filipino', '2.6%', '1.0M'],
+  ['Arab', '1.9%', '760K'],
+  ['Latin American', '1.8%', '720K'],
+  ['Southeast Asian', '1.1%', '440K'],
+  ['Other / Multiracial', '23.6%', '9.4M']
+];
+const CA_VAT = [
+  ['GST (Federal)', '5%', 'Standard', 'Applies nationwide'],
+  ['HST (Participating provinces)', '13-15%', 'Combined', 'ON, NB, NL, NS, PEI'],
+  ['PST (Non-participating provinces)', '0-10%', 'Provincial', 'BC, MB, QC, SK'],
+  ['Basic Groceries', '0%', 'Exempt', 'Food, beverages'],
+  ['Prescription Drugs', '0%', 'Exempt', 'Medicines'],
+  ['Rent (Residential)', '0%', 'Exempt', 'No GST/HST on rent']
+];
+const CA_FREIGHT = [
+  ['China (Shanghai) → Vancouver', 'Sea', '15-20 days', '$1,200-1,800'],
+  ['USA → Canada (Road)', 'Land', '1-5 days', '$500-1,200'],
+  ['Europe → Montreal', 'Sea', '12-18 days', '$1,500-2,200'],
+  ['Domestic (Toronto → Vancouver)', 'Land', '5-7 days', '$2,500-3,500/truck']
+];
+const CA_TAX_SLABS = [
+  { min: 0, max: 53359, rate: 0.15 },
+  { min: 53359, max: 106717, rate: 0.205 },
+  { min: 106717, max: 165430, rate: 0.26 },
+  { min: 165430, max: 235675, rate: 0.29 },
+  { min: 235675, max: Infinity, rate: 0.33 }
+];
+const CA_BASIC_PERSONAL_AMOUNT = 15000;
 
 let currentCountry = "BD";
 let currentCurrency = "BDT";
@@ -399,6 +423,7 @@ function openCountry(code){
   if(code === 'BD'){ currentCountry='BD'; currentCurrency='BDT'; currentSymbol='৳'; fmt=(n)=>'৳'+Math.round(n).toLocaleString('en-IN'); renderBDData(); document.getElementById('tax-regime-group').style.display='none'; }
   else if(code === 'IN'){ currentCountry='IN'; currentCurrency='INR'; currentSymbol='₹'; fmt=(n)=>'₹'+Math.round(n).toLocaleString('en-IN'); renderINData(); document.getElementById('tax-regime-group').style.display='block'; }
   else if(code === 'TH'){ currentCountry='TH'; currentCurrency='THB'; currentSymbol='฿'; fmt=(n)=>'฿'+Math.round(n).toLocaleString('en-IN'); renderTHData(); document.getElementById('tax-regime-group').style.display='none'; }
+  else if(code === 'CA'){ currentCountry='CA'; currentCurrency='CAD'; currentSymbol='$'; fmt=(n)=>'$'+Math.round(n).toLocaleString('en-IN'); renderCAData(); document.getElementById('tax-regime-group').style.display='none'; }
   else { renderPlaceholder(c); }
   showTab('demographics');
   calcIncomeTax();
@@ -410,15 +435,15 @@ function renderBDData(){
   document.getElementById('demo-body').innerHTML = BD_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td>${r[2]}</td><td style="color:#888">${r[3]}</td></tr>`).join('');
   document.getElementById('religion-body').innerHTML = BD_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
   document.getElementById('ethnic-body').innerHTML = BD_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('vat-body').innerHTML = BD_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td></tr>`).join('');
+  document.getElementById('vat-body').innerHTML = BD_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1]==='0%'?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
   document.getElementById('freight-body').innerHTML = BD_FREIGHT.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
 }
 
 function renderINData(){
   document.getElementById('demo-body').innerHTML = IN_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td>${r[2]}</td><td style="color:#888">${r[3]||'Govt'}</td></tr>`).join('');
   document.getElementById('religion-body').innerHTML = IN_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('ethnic-body').innerHTML = IN_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('vat-body').innerHTML = IN_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td></tr>`).join('');
+  document.getElementById('ethnic-body').innerHTML = IN_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}<tr></tr>`).join('');
+  document.getElementById('vat-body').innerHTML = IN_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1].includes('0')?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
   document.getElementById('freight-body').innerHTML = IN_FREIGHT.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
 }
 
@@ -426,12 +451,20 @@ function renderTHData(){
   document.getElementById('demo-body').innerHTML = TH_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td>${r[2]}</td><td style="color:#888">${r[3]||'NSO'}</td></tr>`).join('');
   document.getElementById('religion-body').innerHTML = TH_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
   document.getElementById('ethnic-body').innerHTML = TH_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('vat-body').innerHTML = TH_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td></tr>`).join('');
+  document.getElementById('vat-body').innerHTML = TH_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1]==='0%'?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
   document.getElementById('freight-body').innerHTML = TH_FREIGHT.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
 }
 
+function renderCAData(){
+  document.getElementById('demo-body').innerHTML = CA_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td style="color:#888">${r[2]}</td><td style="color:#888">${r[3]}</td>`).join('');
+  document.getElementById('religion-body').innerHTML = CA_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
+  document.getElementById('ethnic-body').innerHTML = CA_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
+  document.getElementById('vat-body').innerHTML = CA_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1]==='0%'?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
+  document.getElementById('freight-body').innerHTML = CA_FREIGHT.map(r=>`<td>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+}
+
 function renderPlaceholder(c){
-  ['demo-body','religion-body','ethnic-body','vat-body','freight-body','slab-body'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=`<tr><td colspan="10" style="text-align:center;padding:2rem;color:#888">📡 ${c.name} data coming soon — contribute on GitHub!</td></tr>`; });
+  ['demo-body','religion-body','ethnic-body','vat-body','freight-body','slab-body'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=`<td><td colspan="10" style="text-align:center;padding:2rem;color:#888">📡 ${c.name} data coming soon — contribute on GitHub!</td>`; });
   document.getElementById('income-result-cells').innerHTML = '<div class="rcell"><div class="rcell-label">Status</div><div class="rcell-value">Data coming soon</div></div>';
 }
 
@@ -439,6 +472,7 @@ function calcIncomeTax(){
   if(currentCountry === 'BD') calcBDTax();
   else if(currentCountry === 'IN') calcINTax();
   else if(currentCountry === 'TH') calcTHTax();
+  else if(currentCountry === 'CA') calcCATax();
   else { document.getElementById('income-result-cells').innerHTML = '<div class="rcell"><div class="rcell-label">Status</div><div class="rcell-value">Select a country</div></div>'; }
 }
 
@@ -520,11 +554,39 @@ function calcTHTax(){
   const effRate = income>0?(tax/income*100):0;
   const cells = [{label:'Personal Allowance', value:fmt(personalAllowance)},{label:'Employment Deduction (50% up to 100k)', value:fmt(employmentDeduction)},{label:'Taxable Income', value:fmt(taxableIncome)},{label:'Total Income Tax', value:fmt(tax), cls:'total'},{label:'Effective Rate', value:effRate.toFixed(2)+'%'}];
   document.getElementById('income-result-cells').innerHTML = cells.map(c=>`<div class="rcell"><div class="rcell-label">${c.label}</div><div class="rcell-value ${c.cls||''}">${c.value}</div></div>`).join('');
+  document.getElementById('slab-body').innerHTML = slabRows.map((r,i)=>`<tr><td>${i+1}<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+}
+
+function calcCATax(){
+  const income = parseFloat(document.getElementById('i_income').value)||0;
+  const basicPersonalAmount = CA_BASIC_PERSONAL_AMOUNT;
+  const taxableIncome = Math.max(0, income - basicPersonalAmount);
+  let tax = 0, slabRows = [];
+  let prevLimit = 0;
+  for(let i=0; i<CA_TAX_SLABS.length; i++){
+    const slab = CA_TAX_SLABS[i];
+    const upper = slab.max;
+    const rate = slab.rate;
+    const taxableInSlab = Math.max(0, Math.min(taxableIncome, upper) - prevLimit);
+    if(taxableInSlab > 0){
+      const slabTax = taxableInSlab * rate;
+      tax += slabTax;
+      slabRows.push([`${formatCAD(prevLimit)} - ${upper===Infinity?'Above':formatCAD(upper)}`, `${(rate*100).toFixed(1)}%`, fmt(slabTax), fmt(tax)]);
+    } else {
+      slabRows.push([`${formatCAD(prevLimit)} - ${upper===Infinity?'Above':formatCAD(upper)}`, `${(rate*100).toFixed(1)}%`, '$0', fmt(tax)]);
+    }
+    prevLimit = upper;
+    if(taxableIncome <= upper) break;
+  }
+  const effRate = income>0?(tax/income*100):0;
+  const cells = [{label:'Basic Personal Amount', value:fmt(basicPersonalAmount)},{label:'Taxable Income', value:fmt(taxableIncome)},{label:'Federal Tax Payable', value:fmt(tax), cls:'total'},{label:'Effective Rate', value:effRate.toFixed(2)+'%'}];
+  document.getElementById('income-result-cells').innerHTML = cells.map(c=>`<div class="rcell"><div class="rcell-label">${c.label}</div><div class="rcell-value ${c.cls||''}">${c.value}</div></div>`).join('');
   document.getElementById('slab-body').innerHTML = slabRows.map((r,i)=>`<tr><td>${i+1}</td>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
 }
 
 function formatINR(n){ if(n===Infinity) return 'Above'; return '₹'+n.toLocaleString('en-IN'); }
 function formatTHB(n){ if(n===Infinity) return 'Above'; return '฿'+n.toLocaleString('en-IN'); }
+function formatCAD(n){ if(n===Infinity) return 'Above'; return '$'+n.toLocaleString('en-IN'); }
 
 function calcImport(){
   const price = parseFloat(document.getElementById('p_price').value)||0;
