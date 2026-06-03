@@ -63,3 +63,68 @@ Primary Technical Contact: seliim.ahmed@gmail.com
 Any use of this software, whether in part or in full, is strictly forbidden unless explicitly authorized via a written, legally approved contract bearing the physical signature of Seliim Ahmed.
 Seliim Ahmed accepts no responsibility, liability, or legal exposure for consequences arising out of the unauthorized deployment of this architecture. Full legal actions will be enforced against any violating party.
 
+price structure
+# JStL Spreadsheet™ - Pricing & Licensing
+
+---
+
+## 1. Individual User Basic
+**$12 USD / year**
+
+- 36 report downloads per year
+- 3 updates per year
+
+---
+
+## 2. Individual Business Man / Shop etc
+**$36 USD / year**
+
+- 48 report downloads per year
+- 12 updates per year
+
+---
+
+## 3. Consultant / Corporate / Lawyers
+**$3,000 USD / year**
+
+- 360 report downloads per year
+- 369 updates per year
+
+---
+
+## 4. Big Corporate etc (12 individual group)
+**$6,939 USD / year**
+
+- 963 report downloads per year
+- 369 updates per year
+- 12 individual user group
+
+---
+
+## 5. Student / Researchers
+**$33 USD / 3 years**
+
+- 12 report downloads per year
+- 12 updates per year
+- Valid student ID required
+
+---
+
+each buyer will get
+digital certificate with name
+address and lisence number
+and shaved in our clients database
+so in case of individual or corporate lisence could be retrieved and send digital soft copy or printed hatd copy by DHL snd price will be ad per transaction cost oniy 
+
+## Payment Methods Accepted
+
+- 💳 Credit / Debit Card
+- 🏦 Western Union
+- 🪙 Cryptocurrency (BTC / USDT / ETH)
+- 💎 Gemstone (negotiated)
+
+---
+
+**Contact:** seliim.ahmed@gmail.com
+
+© 2026 JStL Spreadsheet™
