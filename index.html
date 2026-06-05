@@ -1,634 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Count It — World Demographics & Tax Platform | BD · IN · TH · CA</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg: #0d1f17; --bg2: #122318; --bg3: #1a3025;
-  --green: #1e4d30; --green-mid: #2a6b40; --green-lite: #3d9e60;
-  --accent: #5ecf82; --gold: #c9a84c; --white: #f4f7f4;
-  --cell-bg: #ffffff; --cell-text: #111111;
-  --border: rgba(94,207,130,0.18); --muted: rgba(244,247,244,0.45);
-  --font-display: 'Cormorant Garamond', serif;
-  --font-body: 'Outfit', sans-serif;
-  --font-mono: 'DM Mono', monospace;
-  --nav-h: 64px;
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--font-body);background:var(--bg);color:var(--white);min-height:100vh;overflow-x:hidden}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--green-mid);border-radius:3px}
-nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(13,31,23,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
-.nav-logo{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--white);letter-spacing:-0.5px;display:flex;align-items:baseline;gap:0.3rem}
-.nav-logo span{color:var(--accent);font-size:0.7em;font-family:var(--font-body);font-weight:300;letter-spacing:3px;text-transform:uppercase}
-.nav-links{display:flex;gap:0.25rem;align-items:center}
-.nav-links a{color:var(--muted);font-size:0.8rem;font-weight:500;letter-spacing:0.5px;text-decoration:none;padding:6px 14px;border-radius:8px;transition:all 0.2s}
-.nav-links a:hover{color:var(--accent);background:rgba(94,207,130,0.08)}
-.nav-cta{background:var(--green-mid);color:var(--white)!important;border-radius:8px;padding:7px 18px!important;font-weight:600!important}
-.nav-cta:hover{background:var(--green-lite)!important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
-.hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:0.3s}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--nav-h) + 3rem) 1.5rem 4rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(42,107,64,0.25) 0%, transparent 70%),radial-gradient(circle at 20% 80%, rgba(30,77,48,0.3) 0%, transparent 50%),radial-gradient(circle at 80% 20%, rgba(94,207,130,0.06) 0%, transparent 40%);pointer-events:none}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(94,207,130,0.04) 1px, transparent 1px),linear-gradient(90deg, rgba(94,207,130,0.04) 1px, transparent 1px);background-size:60px 60px;pointer-events:none}
-.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(94,207,130,0.1);border:1px solid rgba(94,207,130,0.3);color:var(--accent);font-size:0.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:99px;margin-bottom:1.5rem;animation:fadeDown 0.8s ease both}
-.hero-tag::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.7)}}
-.hero h1{font-family:var(--font-display);font-size:clamp(3rem, 9vw, 7rem);font-weight:700;line-height:0.95;color:var(--white);letter-spacing:-2px;margin-bottom:1rem;animation:fadeUp 0.9s ease 0.1s both}
-.hero h1 em{color:var(--accent);font-style:italic}
-.hero-sub{font-size:clamp(0.95rem,2vw,1.15rem);color:var(--muted);max-width:560px;line-height:1.7;margin:0 auto 2.5rem;animation:fadeUp 0.9s ease 0.2s both}
-.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.9s ease 0.3s both}
-.btn-primary{background:var(--accent);color:var(--bg);font-weight:700;font-size:0.9rem;letter-spacing:0.3px;padding:14px 32px;border-radius:12px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
-.btn-primary:hover{background:#78e09a;transform:translateY(-2px);box-shadow:0 8px 24px rgba(94,207,130,0.35)}
-.btn-outline{background:transparent;color:var(--white);font-weight:500;font-size:0.9rem;padding:14px 32px;border-radius:12px;border:1.5px solid rgba(255,255,255,0.2);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
-.btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
-.hero-stats{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border);animation:fadeUp 0.9s ease 0.4s both;width:100%;max-width:700px}
-.hero-stat .num{font-family:var(--font-mono);font-size:1.8rem;font-weight:500;color:var(--accent);display:block}
-.hero-stat .lbl{font-size:0.72rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-section{padding:5rem 1.5rem;max-width:1200px;margin:0 auto}
-.sec-label{font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
-.sec-title{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.5rem);font-weight:700;line-height:1.1;color:var(--white);margin-bottom:1rem}
-.sec-sub{color:var(--muted);font-size:0.95rem;line-height:1.7;max-width:560px}
-#explore{padding-top:2rem}
-.country-search{width:100%;background:rgba(255,255,255,0.05);border:1.5px solid var(--border);border-radius:12px;padding:0.85rem 1.25rem;font-family:var(--font-body);font-size:1rem;color:var(--white);outline:none;margin-bottom:1.5rem;transition:border 0.2s}
-.country-search::placeholder{color:var(--muted)}
-.country-search:focus{border-color:var(--accent)}
-.country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
-.country-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.25rem 1rem;cursor:pointer;transition:all 0.25s;display:flex;flex-direction:column;gap:0.5rem;text-decoration:none;position:relative;overflow:hidden}
-.country-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(94,207,130,0.07),transparent);opacity:0;transition:opacity 0.25s}
-.country-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.4)}
-.country-card:hover::before{opacity:1}
-.country-flag{font-size:2.2rem;line-height:1}
-.country-name{font-weight:600;font-size:0.92rem;color:var(--white)}
-.country-pop{font-size:0.72rem;color:var(--muted);font-family:var(--font-mono)}
-.country-tags{display:flex;gap:0.3rem;flex-wrap:wrap;margin-top:0.25rem}
-.ctag{font-size:0.6rem;padding:2px 7px;border-radius:99px;background:rgba(94,207,130,0.1);color:var(--accent);font-weight:600;letter-spacing:0.5px}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-top:3rem}
-.feat{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:all 0.25s}
-.feat:hover{border-color:rgba(94,207,130,0.4);transform:translateY(-2px)}
-.feat-icon{width:48px;height:48px;background:rgba(94,207,130,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
-.feat h3{font-family:var(--font-display);font-size:1.25rem;font-weight:600;margin-bottom:0.5rem}
-.feat p{font-size:0.82rem;color:var(--muted);line-height:1.7}
-#country-page{display:none;min-height:100vh;padding-top:var(--nav-h)}
-#country-page.active{display:block}
-#landing{transition:opacity 0.3s}
-#landing.hidden{display:none}
-.country-hero{background:var(--bg2);border-bottom:1px solid var(--border);padding:2rem 1.5rem}
-.country-hero-inner{max-width:1200px;margin:0 auto}
-.back-btn{display:inline-flex;align-items:center;gap:0.4rem;color:var(--muted);font-size:0.8rem;cursor:pointer;background:none;border:none;padding:0;margin-bottom:1rem;transition:color 0.2s}
-.back-btn:hover{color:var(--accent)}
-.country-hero-title{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
-.c-flag{font-size:3rem}
-.c-name{font-family:var(--font-display);font-size:2.5rem;font-weight:700;color:var(--white)}
-.c-sub{font-size:0.85rem;color:var(--muted);margin-top:0.25rem}
-.download-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem}
-.dl-btn{display:inline-flex;align-items:center;gap:0.4rem;background:var(--green);color:var(--white);font-size:0.78rem;font-weight:600;letter-spacing:0.5px;padding:8px 16px;border-radius:8px;border:1px solid rgba(94,207,130,0.3);cursor:pointer;transition:all 0.2s;text-decoration:none}
-.dl-btn:hover{background:var(--green-mid);border-color:var(--accent)}
-.page-tabs{background:var(--bg2);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;padding:0 1.5rem}
-.page-tabs::-webkit-scrollbar{display:none}
-.ptab{background:none;border:none;color:var(--muted);font-family:var(--font-body);font-size:0.8rem;font-weight:600;letter-spacing:0.5px;padding:1rem 1.25rem;cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;transition:all 0.2s}
-.ptab:hover{color:var(--white)}
-.ptab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.data-section{max-width:1200px;margin:0 auto;padding:1.5rem}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-.panel-head{margin-bottom:1.25rem}
-.panel-head h2{font-family:var(--font-display);font-size:1.5rem;color:var(--white);margin-bottom:0.25rem}
-.panel-head p{font-size:0.8rem;color:var(--muted)}
-.sheet-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem}
-.sheet{width:100%;border-collapse:collapse}
-.sheet thead tr{background:var(--green);color:var(--white)}
-.sheet th{font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:10px 14px;text-align:left;white-space:nowrap;border-right:1px solid rgba(255,255,255,0.1)}
-.sheet th:last-child{border-right:none}
-.sheet tbody tr{background:var(--cell-bg)}
-.sheet tbody tr:nth-child(even){background:#f5f5f5}
-.sheet tbody tr:hover{background:#e8f5ee}
-.sheet td{font-family:var(--font-mono);font-size:0.82rem;color:var(--cell-text);padding:9px 14px;border-right:1px solid #e0e0e0;border-bottom:1px solid #e8e8e8;white-space:nowrap}
-.sheet td:last-child{border-right:none}
-.sheet td.bold{font-weight:700}
-.sheet td.green{color:#1a6b3c;font-weight:600}
-.sheet td.red{color:#c0392b;font-weight:600}
-.calc-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1.5rem}
-.calc-card h3{font-family:var(--font-display);font-size:1.25rem;color:var(--white);margin-bottom:1rem}
-.calc-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.25rem}
-.cf-group label{display:block;font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem}
-.cf-group input,.cf-group select{width:100%;background:rgba(255,255,255,0.06);border:1.5px solid var(--border);border-radius:8px;padding:0.65rem 0.9rem;font-family:var(--font-mono);font-size:0.9rem;color:var(--white);outline:none;transition:border 0.2s}
-.cf-group input::placeholder{color:var(--muted)}
-.cf-group input:focus,.cf-group select:focus{border-color:var(--accent)}
-.calc-run{background:var(--accent);color:var(--bg);font-family:var(--font-body);font-weight:700;font-size:0.9rem;padding:11px 28px;border:none;border-radius:10px;cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
-.calc-run:hover{background:#78e09a;transform:translateY(-1px)}
-.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;margin-top:1rem}
-.rcell{background:var(--cell-bg);border-radius:10px;padding:1rem;border:1px solid #dde}
-.rcell-label{font-size:0.65rem;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:#888;margin-bottom:0.3rem}
-.rcell-value{font-family:var(--font-mono);font-size:1.1rem;font-weight:500;color:var(--cell-text)}
-.rcell-value.total{color:#1a6b3c;font-size:1.3rem;font-weight:700}
-.rcell-value.red{color:#c0392b}
-.income-calc{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-@media(max-width:700px){.income-calc{grid-template-columns:1fr}}
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;color:var(--muted);font-size:0.75rem;line-height:1.8}
-footer strong{color:var(--white)}
-@media(max-width:768px){
-  .nav-links{display:none;position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);flex-direction:column;padding:1rem;gap:0.25rem;z-index:400}
-  .nav-links.open{display:flex}
-  .hamburger{display:flex}
-  .hero h1{letter-spacing:-1px}
-  .hero-stats{gap:1.5rem}
-  .country-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-}
-@media(max-width:480px){.country-grid{grid-template-columns:1fr 1fr}nav{padding:0 1rem}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Shivanetra | Cosmic Astrology</title>
+    <style>
+        /* ========== EXACT SAME STYLES AS BEFORE (no changes) ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #0a0a2a;
+            min-height: 100vh;
+        }
+        .landing {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: #0a0a2a;
+        }
+        .landing-image svg {
+            width: 200px;
+            height: 200px;
+            filter: drop-shadow(0 0 20px rgba(100,150,255,0.5));
+        }
+        .landing h1 { color: white; font-size: 2.5em; letter-spacing: 4px; margin-bottom: 15px; font-weight: normal; }
+        .landing p { color: #aaccee; margin-bottom: 40px; font-size: 1em; }
+        .white-btn {
+            background: white; color: #0a0a2a; border: none; padding: 14px 40px;
+            border-radius: 50px; font-family: monospace; font-size: 1.1em; font-weight: bold;
+            cursor: pointer; transition: transform 0.2s;
+        }
+        .white-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .app { display: none; min-height: 100vh; background: #0a0a2a; padding: 20px; }
+        .app.active { display: block; }
+        .top-bar { background: #0a0a2a; padding: 15px 20px; border-bottom: 1px solid #1a2a4a; }
+        .page-name { color: #7abfef; font-size: 1.4em; font-weight: bold; letter-spacing: 1px; text-align: center; }
+        .card { background: white; border-radius: 20px; padding: 25px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); color: #0a0a2a; }
+        .card h2, .card h3 { color: #0a0a2a; margin-bottom: 15px; }
+        label { font-weight: bold; display: block; margin-top: 12px; margin-bottom: 5px; color: #0a0a2a; }
+        input, select { width: 100%; padding: 10px; font-family: monospace; border: 1px solid #ccc; border-radius: 8px; background: white; font-size: 1em; }
+        .row { display: flex; gap: 12px; margin-top: 5px; }
+        .row > div { flex: 1; }
+        button {
+            background: #0a0a2a; color: white; border: none; padding: 12px 20px;
+            border-radius: 40px; font-family: monospace; font-weight: bold; cursor: pointer; margin-top: 20px; width: 100%;
+        }
+        button.secondary { background: #1B5E20; }
+        .button-group { display: flex; gap: 12px; margin-top: 20px; }
+        .button-group button { margin-top: 0; }
+        .sign-grid, .result-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; margin: 20px 0; }
+        .sign-card, .result-card { background: #f0f2f5; padding: 12px; border-radius: 12px; text-align: center; cursor: pointer; border-left: 3px solid #0a0a2a; }
+        .sign-card:hover { background: #e0e4e8; }
+        .footer-note { text-align: center; margin-top: 20px; font-size: 0.7em; color: #6688aa; }
+        .hidden { display: none; }
+        .loading { text-align: center; padding: 40px; }
+        @media (max-width: 600px) { .row { flex-direction: column; gap: 0; } .button-group { flex-direction: column; } .card { padding: 20px; } }
+    </style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo">Count It <span>Global</span></div>
-  <div class="nav-links" id="navLinks">
-    <a href="#explore">Countries</a>
-    <a href="#features">Features</a>
-    <a href="https://github.com/YOUR_USERNAME/count-it" target="_blank">GitHub</a>
-    <a href="#explore" class="nav-cta">Open Data →</a>
-  </div>
-  <div class="hamburger" onclick="toggleNav()" id="ham">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-
-<div id="landing">
-  <div class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-tag"><span></span> Open Data · Real Numbers · Zero Jargon</div>
-    <h1>Count <em>It.</em></h1>
-    <p class="hero-sub">World demographics, income tax, VAT, import costs and trade data — all in one transparent, free platform. Click a country. Get the data. Download it.</p>
-    <div class="hero-btns">
-      <a href="#explore" class="btn-primary">🌍 Explore Countries</a>
-      <a href="https://github.com/YOUR_USERNAME/count-it" class="btn-outline" target="_blank">⭐ Star on GitHub</a>
+<!-- LANDING PAGE (unchanged) -->
+<div id="landingPage" class="landing">
+    <div class="landing-image">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs><radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#7abfef" stop-opacity="0.8"/>
+                <stop offset="50%" stop-color="#4a6a9a" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#0a0a2a" stop-opacity="0"/>
+            </radialGradient></defs>
+            <circle cx="100" cy="100" r="80" fill="url(#glow)"/>
+            <circle cx="100" cy="100" r="30" fill="none" stroke="#aaccee" stroke-width="1" stroke-dasharray="4 4"/>
+            <circle cx="100" cy="100" r="50" fill="none" stroke="#6688aa" stroke-width="0.5"/>
+            <circle cx="100" cy="100" r="70" fill="none" stroke="#445566" stroke-width="0.3"/>
+            <circle cx="100" cy="100" r="15" fill="white" opacity="0.9"/>
+        </svg>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><span class="num">195</span><span class="lbl">Countries</span></div>
-      <div class="hero-stat"><span class="num">8B+</span><span class="lbl">People Tracked</span></div>
-      <div class="hero-stat"><span class="num">50K+</span><span class="lbl">HS Codes</span></div>
-      <div class="hero-stat"><span class="num">Free</span><span class="lbl">Always Open</span></div>
-    </div>
-  </div>
-
-  <section id="features">
-    <div class="sec-label">What's Inside</div>
-    <div class="sec-title">Everything in<br><em style="color:var(--accent)">one place.</em></div>
-    <div class="features-grid">
-      <div class="feat"><div class="feat-icon">👥</div><h3>Demographics</h3><p>Population, birth & death rates, gender split, marriage status, religion, ethnicity — all sourced from official government and UN data.</p></div>
-      <div class="feat"><div class="feat-icon">💰</div><h3>Income & Tax</h3><p>Real income data by bracket. Calculate income tax live — change any field and watch the numbers update instantly.</p></div>
-      <div class="feat"><div class="feat-icon">📦</div><h3>Import Calculator</h3><p>Enter product name or HS code, price and quantity. Get full breakdown of customs duty, VAT/GST, freight and total landed cost.</p></div>
-      <div class="feat"><div class="feat-icon">🚢</div><h3>Freight Costs</h3><p>Sea, air and land freight estimates. Compare cost vs speed for your shipment route.</p></div>
-      <div class="feat"><div class="feat-icon">📊</div><h3>Spreadsheet View</h3><p>All data in clean editable cells — like a spreadsheet. Edit income fields, quantities, prices. Download as HTML or plain text.</p></div>
-      <div class="feat"><div class="feat-icon">⬇️</div><h3>Download Anything</h3><p>Every country page exports as structured HTML or tab-delimited text. Open in any spreadsheet app instantly.</p></div>
-    </div>
-  </section>
-
-  <section id="explore">
-    <div class="sec-label">Country Explorer</div>
-    <div class="sec-title">Pick a country.</div>
-    <p class="sec-sub" style="margin-bottom:2rem">Click any country to view demographics, tax rates, import costs and live calculators.</p>
-    <input class="country-search" id="countrySearch" placeholder="🔍 Search country name..." oninput="filterCountries(this.value)">
-    <div class="country-grid" id="countryGrid"></div>
-  </section>
+    <h1>🌀 SHIVANETRA</h1>
+    <p>Vedic Sidereal Astrology · Surya Siddhanta Engine</p>
+    <button class="white-btn" id="enterBtn">Enter</button>
 </div>
 
-<div id="country-page">
-  <div class="country-hero">
-    <div class="country-hero-inner">
-      <button class="back-btn" onclick="goHome()">← Back to Countries</button>
-      <div class="country-hero-title">
-        <span class="c-flag" id="c-flag">🇧🇩</span>
-        <div>
-          <div class="c-name" id="c-name">Bangladesh</div>
-          <div class="c-sub" id="c-sub">South Asia · Population: 173M · Data: 2024–25</div>
+<!-- MAIN APP (6 pages) -->
+<div id="appContainer" class="app">
+    <!-- PAGE 1: BIRTH DATA ENTRY (now includes country selector) -->
+    <div id="pageData" class="app-page active">
+        <div class="top-bar"><div class="page-name">📜 Birth Data & Country</div></div>
+        <div class="card">
+            <label>Full Name</label>
+            <input type="text" id="userName" placeholder="Your name" value="Devotee">
+            <div class="row">
+                <div><label>Day</label><input type="number" id="day" value="15"></div>
+                <div><label>Month</label><input type="number" id="month" value="8"></div>
+                <div><label>Year</label><input type="number" id="year" value="1947"></div>
+            </div>
+            <div class="row">
+                <div><label>Hour (0-23)</label><input type="number" id="hour" value="0"></div>
+                <div><label>Minute</label><input type="number" id="minute" value="1"></div>
+                <div><label>Timezone</label><input type="number" id="tz" step="0.5" value="5.5"></div>
+            </div>
+            <div class="row">
+                <div><label>Latitude</label><input type="text" id="lat" value="28.6139"></div>
+                <div><label>Longitude</label><input type="text" id="lon" value="77.2090"></div>
+            </div>
+            <label>Location Name</label>
+            <input type="text" id="locationName" value="New Delhi, India">
+            
+            <!-- NEW: Country selector for data (tax, land) -->
+            <label>Select Country (for Tax & Land)</label>
+            <select id="countrySelect">
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="India" selected>India</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Canada">Canada</option>
+            </select>
+            
+            <div class="button-group">
+                <button id="toSunSignBtn" class="secondary">→ Sun Sign Page</button>
+                <button id="toNatalBtn">→ Natal Chart</button>
+            </div>
+            <div class="footer-note">Data stays on your device</div>
         </div>
-      </div>
-      <div class="download-row">
-        <button class="dl-btn" onclick="downloadHTML()">⬇ Download HTML</button>
-        <button class="dl-btn" onclick="downloadText()">⬇ Download Text (Spreadsheet)</button>
-      </div>
     </div>
-  </div>
-
-  <div class="page-tabs">
-    <button class="ptab active" onclick="showTab('demographics')">👥 Demographics</button>
-    <button class="ptab" onclick="showTab('income')">💰 Income & Tax</button>
-    <button class="ptab" onclick="showTab('import')">📦 Import Calculator</button>
-    <button class="ptab" onclick="showTab('freight')">🚢 Freight Costs</button>
-    <button class="ptab" onclick="showTab('vat')">🧾 VAT / GST</button>
-  </div>
-
-  <div class="data-section">
-    <div class="tab-panel active" id="tab-demographics">
-      <div class="panel-head"><h2>Demographics</h2><p>Official data — World Bank, UN Population Division, national statistics</p></div>
-      <div class="sheet-wrap"><table class="sheet"><thead><tr><th>Indicator</th><th>Value</th><th>Year</th><th>Source</th></tr></thead><tbody id="demo-body"></tbody></table></div>
-      <div class="sheet-wrap" style="margin-top:1.5rem"><table class="sheet"><thead><tr><th>Religion</th><th>Population %</th><th>Est. Population</th></tr></thead><tbody id="religion-body"></tbody></table></div>
-      <div class="sheet-wrap" style="margin-top:1.5rem"><table class="sheet"><thead><tr><th>Ethnic Group</th><th>Population %</th><th>Est. Population</th></tr></thead><tbody id="ethnic-body"></tbody></table></div>
-    </div>
-
-    <div class="tab-panel" id="tab-income">
-      <div class="panel-head"><h2>Income & Tax Calculator</h2><p>Edit income — tax updates live.</p></div>
-      <div class="income-calc">
-        <div class="calc-card">
-          <h3>Your Income</h3>
-          <div class="calc-form" style="grid-template-columns:1fr">
-            <div class="cf-group" id="tax-regime-group" style="display:none"><label>Tax Regime (India)</label><select id="i_regime" onchange="calcIncomeTax()"><option value="new">New Regime (Default)</option><option value="old">Old Regime</option></select></div>
-            <div class="cf-group"><label>Taxpayer Category</label><select id="i_cat" onchange="calcIncomeTax()"><option value="general">General</option><option value="senior">Senior Citizen (60-80 yrs)</option><option value="super_senior">Super Senior (80+ yrs)</option><option value="women">Women / Senior (65+)</option><option value="disabled">Person with Disability</option><option value="freedom">Freedom Fighter</option></select></div>
-            <div class="cf-group"><label>Annual Income</label><input type="number" id="i_income" placeholder="1000000" value="1000000" oninput="calcIncomeTax()"></div>
-            <div class="cf-group"><label>Eligible Investment (Rebate)</label><input type="number" id="i_invest" placeholder="150000" value="0" oninput="calcIncomeTax()"></div>
-            <div class="cf-group"><label>Assessment Year</label><select id="i_ay" onchange="calcIncomeTax()"><option value="2025-26">AY 2025-26</option><option value="2026-27">AY 2026-27 (Proposed)</option></select></div>
-          </div>
+    
+    <!-- PAGE 2: SUN SIGN (unchanged logic) -->
+    <div id="pageSunSign" class="app-page hidden">
+        <div class="top-bar"><div class="page-name">⭐ Your Sun Sign</div></div>
+        <div class="card">
+            <p id="sunSignResult" style="margin-bottom:15px;">Based on your birth data, your Sun sign is: <strong id="sunSignName">—</strong></p>
+            <div id="sunSignGrid" class="sign-grid"></div>
+            <div class="button-group">
+                <button id="backToDataFromSun" class="secondary">← Back</button>
+                <button id="toDailyFromSun">→ Daily Prediction</button>
+            </div>
         </div>
-        <div class="calc-card"><h3>Tax Breakdown</h3><div id="income-result"><div class="result-grid" id="income-result-cells"></div></div></div>
-      </div>
-      <div class="sheet-wrap"><table class="sheet"><thead><tr><th>#</th><th>Slab</th><th>Rate</th><th>Slab Tax</th><th>Cumulative Tax</th></tr></thead><tbody id="slab-body"></tbody></table></div>
     </div>
-
-    <div class="tab-panel" id="tab-import">
-      <div class="panel-head"><h2>Import Cost Calculator</h2><p>Enter product details to calculate full landed cost.</p></div>
-      <div class="calc-card"><h3>📦 Calculate Import Cost</h3><div class="calc-form"><div class="cf-group"><label>Product Name</label><input type="text" id="p_name" value="Product"></div><div class="cf-group"><label>Unit Price (USD)</label><input type="number" id="p_price" value="500" oninput="calcImport()"></div><div class="cf-group"><label>Quantity</label><input type="number" id="p_qty" value="10" oninput="calcImport()"></div><div class="cf-group"><label>Exchange Rate</label><input type="number" id="p_rate" value="110" oninput="calcImport()"></div><div class="cf-group"><label>Goods Category</label><select id="p_cat" onchange="calcImport()"><option value="finished">Finished Goods (25%)</option><option value="raw">Raw Materials (5%)</option><option value="capital">Capital Machinery (1%)</option></select></div><div class="cf-group"><label>Freight Cost (USD)</label><input type="number" id="p_fc" value="150" oninput="calcImport()"></div></div><button class="calc-run" onclick="calcImport()">⚡ Calculate Total Cost</button><div class="result-grid" id="import-result" style="margin-top:1.25rem"></div></div>
+    
+    <!-- PAGE 3: DAILY PREDICTION (unchanged) -->
+    <div id="pageDaily" class="app-page hidden">
+        <div class="top-bar"><div class="page-name">🔮 Daily Guidance</div></div>
+        <div class="card">
+            <h2 id="dailySignTitle">Gemini</h2>
+            <div id="dailyContent" class="result-section"></div>
+            <div class="button-group">
+                <button id="backToSunFromDaily" class="secondary">← Back</button>
+                <button id="toNatalFromDaily">→ Natal Chart</button>
+            </div>
+        </div>
     </div>
-
-    <div class="tab-panel" id="tab-freight"><div class="panel-head"><h2>Freight Cost Reference</h2><p>Estimated shipping costs</p></div><div class="sheet-wrap"><table class="sheet"><thead><tr><th>Route</th><th>Mode</th><th>Transit Time</th><th>Est. Cost</th></tr></thead><tbody id="freight-body"></tbody></table></div></div>
-
-    <div class="tab-panel" id="tab-vat"><div class="panel-head"><h2>VAT / GST Rates</h2><p>Local tax rates by country</p></div><div class="sheet-wrap"><table class="sheet"><thead><tr><th>Sector</th><th>Rate</th><th>Status</th><th>Notes</th></tr></thead><tbody id="vat-body"></tbody></table></div></div>
-  </div>
+    
+    <!-- PAGE 4: NATAL CHART (now includes country-based tax and land demo) -->
+    <div id="pageNatal" class="app-page hidden">
+        <div class="top-bar"><div class="page-name">🌌 Natal + Tax/Land Demo</div></div>
+        <div class="card">
+            <div id="natalContent"></div>
+            <!-- Additional tax/land demo using selected country -->
+            <div id="countryDataDemo" style="margin-top: 20px;"></div>
+            <div class="button-group">
+                <button id="backToDataFromNatal" class="secondary">← Back</button>
+                <button id="toReportsFromNatal">→ Reports</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PAGE 5: REPORTS (unchanged) -->
+    <div id="pageReports" class="app-page hidden">
+        <div class="top-bar"><div class="page-name">📄 Reports</div></div>
+        <div class="card">
+            <p style="margin-bottom:20px;">Download your chart or predictions as HTML.</p>
+            <button id="downloadNatalBtn">📥 Save Natal Chart</button>
+            <button id="downloadDailyBtn">📥 Save Daily Prediction</button>
+            <div class="button-group" style="margin-top:20px;">
+                <button id="backToNatalFromReports" class="secondary">← Back</button>
+                <button id="homeFromReports">🏠 Home</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-note" style="margin: 10px 0 20px;">Shivanetra · Sidereal · Offline</div>
 </div>
-
-<footer><strong>Count It</strong> — Open Data Platform for World Demographics & Tax<br>Data sources: World Bank · UN · Bangladesh NBR · India CBDT · Thai Revenue Department · Canada CRA · Open source · MIT License</footer>
 
 <script>
-const COUNTRIES = [
-  { code:'BD', flag:'🇧🇩', name:'Bangladesh', pop:'173M', region:'South Asia', tags:['Tax DB','Demographics','Import'] },
-  { code:'IN', flag:'🇮🇳', name:'India', pop:'1.48B', region:'South Asia', tags:['Income Tax','Demographics','GST'] },
-  { code:'TH', flag:'🇹🇭', name:'Thailand', pop:'71.6M', region:'Southeast Asia', tags:['Income Tax','Demographics','VAT'] },
-  { code:'CA', flag:'🇨🇦', name:'Canada', pop:'40M', region:'North America', tags:['Income Tax','GST/HST','Demographics'] },
-  { code:'PK', flag:'🇵🇰', name:'Pakistan', pop:'231M', region:'South Asia', tags:['Tax','Demographics'] },
-  { code:'CN', flag:'🇨🇳', name:'China', pop:'1.41B', region:'East Asia', tags:['VAT','Trade'] },
-  { code:'US', flag:'🇺🇸', name:'United States', pop:'335M', region:'North America', tags:['Federal Tax'] }
-];
-
-// ==================== BANGLADESH ====================
-const BD_DEMO = [['Total Population','173,000,000','2024','BBS'],['Male Population','86,500,000','2024','BBS'],['Female Population','86,500,000','2024','BBS'],['Literacy Rate','75.6%','2023','UNESCO'],['GDP per Capita','$2,688','2024','IMF']];
-const BD_RELIGION = [['Islam','91.0%','157M'],['Hinduism','7.9%','13.7M'],['Buddhism','0.6%','1.04M'],['Christianity','0.4%','692K']];
-const BD_ETHNIC = [['Bengali','98.0%','169.5M'],['Chakma','0.3%','519K'],['Marma','0.2%','346K']];
-const BD_VAT = [['Standard Goods','15%','Standard','Most goods'],['Restaurants','5%','Truncated','Reduced rate'],['Education','0%','Exempt','Schools/colleges']];
-const BD_FREIGHT = [['China→Bangladesh','Sea','14-18 days','$850-1,200'],['India→Bangladesh','Land','3-5 days','$500-800']];
-const BD_TAX_SLABS = { "2025-26": { thresholds:{ general:350000, women:400000, disabled:475000, freedom:500000 }, slabs:[{ label:'First 3,50,000', amt:350000, rate:0 },{ label:'Next 1,00,000', amt:100000, rate:5 },{ label:'Next 4,00,000', amt:400000, rate:10 },{ label:'Next 5,00,000', amt:500000, rate:15 },{ label:'Next 5,00,000', amt:500000, rate:20 },{ label:'Next 20,00,000', amt:2000000, rate:25 },{ label:'Balance', amt:Infinity, rate:30 }] }, "2026-27": { thresholds:{ general:375000, women:425000, disabled:500000, freedom:525000 }, slabs:[{ label:'First 3,75,000', amt:375000, rate:0 },{ label:'Next 3,00,000', amt:300000, rate:10 },{ label:'Next 4,00,000', amt:400000, rate:15 },{ label:'Next 5,00,000', amt:500000, rate:20 },{ label:'Next 20,00,000', amt:2000000, rate:25 },{ label:'Balance', amt:Infinity, rate:30 }] } };
-
-// ==================== INDIA ====================
-const IN_DEMO = [
-  ['Total Population', '1,476,625,576', '2026', 'Census / UN'],
-  ['Male Population', '761,120,000 (51.54%)', '2026', 'Census'],
-  ['Female Population', '715,510,000 (48.46%)', '2026', 'Census'],
-  ['Population Density', '497 per km²', '2026', 'UN'],
-  ['Annual Growth Rate', '0.89%', '2026', 'UN'],
-  ['Median Age', '28.8 years', '2026', 'UN'],
-  ['Urban Population', '531,560,000 (36%)', '2026', 'World Bank'],
-  ['Rural Population', '945,065,576 (64%)', '2026', 'World Bank'],
-  ['Literacy Rate (Total)', '74.04%', '2021', 'NFHS-5'],
-  ['Literacy Rate (Male)', '82.14%', '2021', 'NFHS-5'],
-  ['Literacy Rate (Female)', '65.46%', '2021', 'NFHS-5'],
-  ['Life Expectancy', '72.7 years', '2026', 'WHO'],
-  ['Birth Rate (per 1000)', '16.15', '2026', 'UN'],
-  ['Death Rate (per 1000)', '9.1', '2026', 'UN'],
-  ['Total Fertility Rate', '2.0', '2026', 'UN']
-];
-const IN_RELIGION = [['Hinduism','79.80%','1.178B'],['Islam','14.20%','209M'],['Christianity','2.30%','34M'],['Sikhism','1.70%','25M'],['Buddhism','0.80%','11.8M'],['Jainism','0.40%','5.9M']];
-const IN_ETHNIC = [['Indo-Aryan','72%','1.063B'],['Dravidian','25%','369M'],['Tibeto-Burman','3%','44M']];
-const IN_VAT = [['Essential Goods','0-5%','Exempt/Reduced','Food, medicine'],['Standard Goods','12-18%','Standard','Most consumer goods'],['Luxury Goods','28%','Standard + Cess','Cars, tobacco']];
-const IN_FREIGHT = [['China→India','Sea','18-22 days','$1,200-1,800'],['UAE→India','Sea','10-14 days','$900-1,300']];
-const IN_TAX_DATA = {
-  "new": { name: "New Tax Regime", standard_deduction: 75000, rebate_limit: 1200000, rebate_amount: 60000, slabs: [{ min: 0, max: 400000, rate: 0 },{ min: 400001, max: 800000, rate: 5 },{ min: 800001, max: 1200000, rate: 10 },{ min: 1200001, max: 1600000, rate: 15 },{ min: 1600001, max: 2000000, rate: 20 },{ min: 2000001, max: 2400000, rate: 25 },{ min: 2400001, max: Infinity, rate: 30 }] },
-  "old": { name: "Old Tax Regime", standard_deduction: 50000, rebate_limit: 500000, rebate_amount: 12500, slabs_general: [{ min: 0, max: 250000, rate: 0 },{ min: 250001, max: 500000, rate: 5 },{ min: 500001, max: 1000000, rate: 20 },{ min: 1000001, max: Infinity, rate: 30 }], slabs_senior: [{ min: 0, max: 300000, rate: 0 },{ min: 300001, max: 500000, rate: 5 },{ min: 500001, max: 1000000, rate: 20 },{ min: 1000001, max: Infinity, rate: 30 }] }
+// ================== EMBEDDED MASTER DATA (from your JSON) ==================
+const CALXSA_DATA = {
+  "Bangladesh": {
+    "tax_slabs": { "currency": "BDT", "tax_free_threshold": 350000, "slabs": [{"from":0,"to":350000,"rate":0},{"from":350001,"to":450000,"rate":5},{"from":450001,"to":850000,"rate":10},{"from":850001,"to":1350000,"rate":15},{"from":1350001,"to":1850000,"rate":20},{"from":1850001,"to":3850000,"rate":25},{"from":3850001,"to":null,"rate":30}] },
+    "land_units": [{"name":"Bigha","to_sqft":27225},{"name":"Katha","to_sqft":1361.25},{"name":"Ropani","to_sqft":5476.5}],
+    "product_data": [{"hs_code":"7108.12","description":"Gold (unwrought)","import_tax_percent":5,"vat_percent":15,"advance_tax_percent":4,"freight_charge_per_kg":2.50}]
+  },
+  "India": {
+    "tax_slabs": { "currency": "INR", "tax_free_threshold": 400000, "slabs": [{"from":0,"to":400000,"rate":0},{"from":400001,"to":800000,"rate":5},{"from":800001,"to":1200000,"rate":10},{"from":1200001,"to":1600000,"rate":15},{"from":1600001,"to":2000000,"rate":20},{"from":2000001,"to":2400000,"rate":25},{"from":2400001,"to":null,"rate":30}] },
+    "land_units": [{"name":"Bigha (Standard)","to_sqft":27225},{"name":"Katha","to_sqft":1361.25},{"name":"Gaj","to_sqft":9},{"name":"Marla","to_sqft":272.25},{"name":"Acre","to_sqft":43560}],
+    "product_data": [{"hs_code":"7108.12","description":"Gold (unwrought)","import_tax_percent":15,"vat_percent":3,"advance_tax_percent":0,"freight_charge_per_kg":2.20}]
+  },
+  "Thailand": {
+    "tax_slabs": { "currency": "THB", "tax_free_threshold": 150000, "slabs": [{"from":0,"to":150000,"rate":0},{"from":150001,"to":300000,"rate":5},{"from":300001,"to":500000,"rate":10},{"from":500001,"to":750000,"rate":15},{"from":750001,"to":1000000,"rate":20},{"from":1000001,"to":2000000,"rate":25},{"from":2000001,"to":5000000,"rate":30},{"from":5000001,"to":null,"rate":35}] },
+    "land_units": [{"name":"Rai","to_sqft":17222.25},{"name":"Ngan","to_sqft":4305.56},{"name":"Square Wah","to_sqft":43.06}],
+    "product_data": [{"hs_code":"8471.30","description":"Laptops","import_tax_percent":0,"vat_percent":7,"advance_tax_percent":0,"freight_charge_per_kg":3.10}]
+  },
+  "Canada": {
+    "tax_slabs": { "currency": "CAD", "tax_free_threshold": 15000, "slabs": [{"from":0,"to":15000,"rate":0},{"from":15001,"to":53359,"rate":15},{"from":53360,"to":106717,"rate":20.5},{"from":106718,"to":165430,"rate":26},{"from":165431,"to":235675,"rate":29},{"from":235676,"to":null,"rate":33}] },
+    "land_units": [{"name":"Acre","to_sqft":43560},{"name":"Square meter","to_sqft":10.7639}],
+    "product_data": [{"hs_code":"8517.13","description":"Smartphones","import_tax_percent":0,"vat_percent":5,"advance_tax_percent":0,"freight_charge_per_kg":3.80}]
+  }
 };
 
-// ==================== THAILAND ====================
-const TH_DEMO = [
-  ['Total Population', '71,575,000', '2026', 'NSO Thailand'],
-  ['Male Population', '34,910,000 (48.77%)', '2026', 'NSO'],
-  ['Female Population', '36,665,000 (51.23%)', '2026', 'NSO'],
-  ['Population Density', '140.2 per km²', '2026', 'UN'],
-  ['Annual Growth Rate', '-0.12%', '2026', 'UN'],
-  ['Median Age', '41.0 years', '2026', 'UN'],
-  ['Urban Population', '38,300,000 (53.5%)', '2026', 'World Bank'],
-  ['Rural Population', '33,275,000 (46.5%)', '2026', 'World Bank'],
-  ['Literacy Rate (Total)', '94.1%', '2021', 'UNESCO'],
-  ['Life Expectancy', '76.1 years', '2026', 'WHO'],
-  ['Birth Rate (per 1000)', '5.7', '2026', 'UN'],
-  ['Death Rate (per 1000)', '9.6', '2026', 'UN'],
-  ['Total Fertility Rate', '0.93', '2026', 'UN']
-];
-const TH_RELIGION = [['Buddhism (Theravada)','92.5%','66.2M'],['Islam','5.4%','3.87M'],['Christianity','1.2%','859K'],['Hinduism','0.1%','72K'],['Other/None','0.8%','573K']];
-const TH_ETHNIC = [['Thai (Central)','36%','25.8M'],['Thai (Isan/Lao)','33%','23.6M'],['Thai (Northern)','9%','6.44M'],['Thai (Southern)','8%','5.73M'],['Chinese','11%','7.87M'],['Other','3%','2.15M']];
-const TH_VAT = [['Standard Goods & Services','7%','Standard','Most transactions'],['Essential Items','0%','Exempt','Rice, milk, eggs'],['Exports','0%','Zero-rated','No VAT'],['Education & Healthcare','0%','Exempt','Schools, hospitals']];
-const TH_FREIGHT = [['China→Thailand','Sea','7-10 days','$600-1,000'],['Singapore→Thailand','Sea','5-7 days','$400-700'],['Domestic (BKK→Chiang Mai)','Land','8-10 hours','$500-800']];
-const TH_TAX_SLABS = [
-  { min: 0, max: 150000, rate: 0 }, { min: 150001, max: 300000, rate: 5 },
-  { min: 300001, max: 500000, rate: 10 }, { min: 500001, max: 750000, rate: 15 },
-  { min: 750001, max: 1000000, rate: 20 }, { min: 1000001, max: 2000000, rate: 25 },
-  { min: 2000001, max: 5000000, rate: 30 }, { min: 5000001, max: Infinity, rate: 35 }
-];
-const TH_PERSONAL_ALLOWANCE = 60000;
-const TH_EMPLOYMENT_DEDUCTION = { percent: 50, cap: 100000 };
-
-// ==================== CANADA ====================
-const CA_DEMO = [
-  ['Total Population', '40,000,000', '2024', 'Statistics Canada'],
-  ['Male Population', '19,800,000 (49.5%)', '2024', 'StatsCan'],
-  ['Female Population', '20,200,000 (50.5%)', '2024', 'StatsCan'],
-  ['Population Density', '4.2 per km²', '2024', 'StatsCan'],
-  ['Annual Growth Rate', '1.2%', '2024', 'StatsCan'],
-  ['Median Age', '41.6 years', '2024', 'StatsCan'],
-  ['Urban Population', '32,600,000 (81.5%)', '2024', 'World Bank'],
-  ['Rural Population', '7,400,000 (18.5%)', '2024', 'World Bank'],
-  ['Literacy Rate (Total)', '99%', '2020', 'UNESCO'],
-  ['Life Expectancy', '82.3 years', '2024', 'WHO'],
-  ['Birth Rate (per 1000)', '9.8', '2024', 'StatsCan'],
-  ['Death Rate (per 1000)', '8.6', '2024', 'StatsCan'],
-  ['Total Fertility Rate', '1.33', '2024', 'StatsCan'],
-  ['GDP per Capita (USD)', '$54,000', '2024', 'IMF']
-];
-const CA_RELIGION = [
-  ['Christianity (Total)', '53.3%', '21.3M'],
-  ['Irreligious / No Religion', '34.6%', '13.8M'],
-  ['Islam', '4.9%', '1.96M'],
-  ['Hinduism', '2.3%', '920K'],
-  ['Sikhism', '2.1%', '840K'],
-  ['Buddhism', '1.0%', '400K'],
-  ['Judaism', '0.8%', '320K'],
-  ['Indigenous Spirituality', '0.2%', '80K']
-];
-const CA_ETHNIC = [
-  ['European (British, French, German, Italian)', '52.5%', '21.0M'],
-  ['South Asian (Indian, Pakistani, Sri Lankan)', '7.1%', '2.8M'],
-  ['Chinese', '5.1%', '2.0M'],
-  ['Black', '4.3%', '1.7M'],
-  ['Filipino', '2.6%', '1.0M'],
-  ['Arab', '1.9%', '760K'],
-  ['Latin American', '1.8%', '720K'],
-  ['Southeast Asian', '1.1%', '440K'],
-  ['Other / Multiracial', '23.6%', '9.4M']
-];
-const CA_VAT = [
-  ['GST (Federal)', '5%', 'Standard', 'Applies nationwide'],
-  ['HST (Participating provinces)', '13-15%', 'Combined', 'ON, NB, NL, NS, PEI'],
-  ['PST (Non-participating provinces)', '0-10%', 'Provincial', 'BC, MB, QC, SK'],
-  ['Basic Groceries', '0%', 'Exempt', 'Food, beverages'],
-  ['Prescription Drugs', '0%', 'Exempt', 'Medicines'],
-  ['Rent (Residential)', '0%', 'Exempt', 'No GST/HST on rent']
-];
-const CA_FREIGHT = [
-  ['China (Shanghai) → Vancouver', 'Sea', '15-20 days', '$1,200-1,800'],
-  ['USA → Canada (Road)', 'Land', '1-5 days', '$500-1,200'],
-  ['Europe → Montreal', 'Sea', '12-18 days', '$1,500-2,200'],
-  ['Domestic (Toronto → Vancouver)', 'Land', '5-7 days', '$2,500-3,500/truck']
-];
-const CA_TAX_SLABS = [
-  { min: 0, max: 53359, rate: 0.15 },
-  { min: 53359, max: 106717, rate: 0.205 },
-  { min: 106717, max: 165430, rate: 0.26 },
-  { min: 165430, max: 235675, rate: 0.29 },
-  { min: 235675, max: Infinity, rate: 0.33 }
-];
-const CA_BASIC_PERSONAL_AMOUNT = 15000;
-
-let currentCountry = "BD";
-let currentCurrency = "BDT";
-let currentSymbol = "৳";
-let fmt = (n) => currentSymbol + Math.round(n).toLocaleString('en-IN');
-
-function renderCountries(list){ document.getElementById('countryGrid').innerHTML = list.map(c=>`<div class="country-card" onclick="openCountry('${c.code}')"><div class="country-flag">${c.flag}</div><div class="country-name">${c.name}</div><div class="country-pop">${c.region} · ${c.pop}</div><div class="country-tags">${c.tags.map(t=>`<span class="ctag">${t}</span>`).join('')}</div></div>`).join(''); }
-function filterCountries(q){ renderCountries(COUNTRIES.filter(c=>c.name.toLowerCase().includes(q.toLowerCase())||c.region.toLowerCase().includes(q.toLowerCase()))); }
-function toggleNav(){ document.getElementById('navLinks').classList.toggle('open'); }
-
-function openCountry(code){
-  const c = COUNTRIES.find(x=>x.code===code);
-  if(!c) return;
-  document.getElementById('landing').classList.add('hidden');
-  document.getElementById('country-page').classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-  document.getElementById('c-flag').textContent = c.flag;
-  document.getElementById('c-name').textContent = c.name;
-  document.getElementById('c-sub').textContent = `${c.region} · Population: ${c.pop} · Data: 2024–26`;
-  if(code === 'BD'){ currentCountry='BD'; currentCurrency='BDT'; currentSymbol='৳'; fmt=(n)=>'৳'+Math.round(n).toLocaleString('en-IN'); renderBDData(); document.getElementById('tax-regime-group').style.display='none'; }
-  else if(code === 'IN'){ currentCountry='IN'; currentCurrency='INR'; currentSymbol='₹'; fmt=(n)=>'₹'+Math.round(n).toLocaleString('en-IN'); renderINData(); document.getElementById('tax-regime-group').style.display='block'; }
-  else if(code === 'TH'){ currentCountry='TH'; currentCurrency='THB'; currentSymbol='฿'; fmt=(n)=>'฿'+Math.round(n).toLocaleString('en-IN'); renderTHData(); document.getElementById('tax-regime-group').style.display='none'; }
-  else if(code === 'CA'){ currentCountry='CA'; currentCurrency='CAD'; currentSymbol='$'; fmt=(n)=>'$'+Math.round(n).toLocaleString('en-IN'); renderCAData(); document.getElementById('tax-regime-group').style.display='none'; }
-  else { renderPlaceholder(c); }
-  showTab('demographics');
-  calcIncomeTax();
-}
-
-function goHome(){ document.getElementById('landing').classList.remove('hidden'); document.getElementById('country-page').classList.remove('active'); window.scrollTo({top:0,behavior:'smooth'}); }
-
-function renderBDData(){
-  document.getElementById('demo-body').innerHTML = BD_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td>${r[2]}</td><td style="color:#888">${r[3]}</td></tr>`).join('');
-  document.getElementById('religion-body').innerHTML = BD_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('ethnic-body').innerHTML = BD_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('vat-body').innerHTML = BD_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1]==='0%'?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
-  document.getElementById('freight-body').innerHTML = BD_FREIGHT.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-
-function renderINData(){
-  document.getElementById('demo-body').innerHTML = IN_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td>${r[2]}</td><td style="color:#888">${r[3]||'Govt'}</td></tr>`).join('');
-  document.getElementById('religion-body').innerHTML = IN_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('ethnic-body').innerHTML = IN_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}<tr></tr>`).join('');
-  document.getElementById('vat-body').innerHTML = IN_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1].includes('0')?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
-  document.getElementById('freight-body').innerHTML = IN_FREIGHT.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-
-function renderTHData(){
-  document.getElementById('demo-body').innerHTML = TH_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td>${r[2]}</td><td style="color:#888">${r[3]||'NSO'}</td></tr>`).join('');
-  document.getElementById('religion-body').innerHTML = TH_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('ethnic-body').innerHTML = TH_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td>${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('vat-body').innerHTML = TH_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1]==='0%'?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
-  document.getElementById('freight-body').innerHTML = TH_FREIGHT.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-
-function renderCAData(){
-  document.getElementById('demo-body').innerHTML = CA_DEMO.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td style="color:#888">${r[2]}</td><td style="color:#888">${r[3]}</td>`).join('');
-  document.getElementById('religion-body').innerHTML = CA_RELIGION.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('ethnic-body').innerHTML = CA_ETHNIC.map(r=>`<tr><td class="bold">${r[0]}</td><td class="green">${r[1]}</td><td class="green">${r[2]}</td></tr>`).join('');
-  document.getElementById('vat-body').innerHTML = CA_VAT.map(r=>`<tr><td class="bold">${r[0]}</td><td class="${r[1]==='0%'?'green':'red'}">${r[1]}</td><td>${r[2]}</td><td style="color:#666">${r[3]}</td>`).join('');
-  document.getElementById('freight-body').innerHTML = CA_FREIGHT.map(r=>`<td>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-
-function renderPlaceholder(c){
-  ['demo-body','religion-body','ethnic-body','vat-body','freight-body','slab-body'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=`<td><td colspan="10" style="text-align:center;padding:2rem;color:#888">📡 ${c.name} data coming soon — contribute on GitHub!</td>`; });
-  document.getElementById('income-result-cells').innerHTML = '<div class="rcell"><div class="rcell-label">Status</div><div class="rcell-value">Data coming soon</div></div>';
-}
-
-function calcIncomeTax(){
-  if(currentCountry === 'BD') calcBDTax();
-  else if(currentCountry === 'IN') calcINTax();
-  else if(currentCountry === 'TH') calcTHTax();
-  else if(currentCountry === 'CA') calcCATax();
-  else { document.getElementById('income-result-cells').innerHTML = '<div class="rcell"><div class="rcell-label">Status</div><div class="rcell-value">Select a country</div></div>'; }
-}
-
-function calcBDTax(){
-  const cat = document.getElementById('i_cat').value;
-  const income = parseFloat(document.getElementById('i_income').value)||0;
-  const invest = parseFloat(document.getElementById('i_invest').value)||0;
-  const ay = document.getElementById('i_ay').value;
-  const data = BD_TAX_SLABS[ay]||BD_TAX_SLABS['2025-26'];
-  const freeLimit = data.thresholds[cat]||data.thresholds.general;
-  const taxable = Math.max(0, income - freeLimit);
-  let remaining = taxable, grossTax = 0, cumTax = 0, slabRows = [];
-  for(const s of data.slabs){
-    if(remaining<=0){ slabRows.push([s.label,`${s.rate}%`,'—','—']); continue; }
-    const chunk = s.amt===Infinity ? remaining : Math.min(remaining,s.amt);
-    const tax = chunk*(s.rate/100);
-    grossTax += tax; cumTax += tax;
-    slabRows.push([s.label,`${s.rate}%`, fmt(tax), fmt(cumTax)]);
-    remaining -= chunk;
-  }
-  const rebate = taxable>0 ? Math.min(taxable*0.03, invest*0.15, 1000000) : 0;
-  const afterRebate = Math.max(0, grossTax-rebate);
-  const finalTax = Math.max(afterRebate, income>freeLimit?5000:0);
-  const effRate = income>0?(finalTax/income*100):0;
-  const cells = [{label:'Tax-Free Threshold', value:fmt(freeLimit)},{label:'Taxable Income', value:fmt(taxable)},{label:'Gross Tax', value:fmt(grossTax)},{label:'Investment Rebate', value:'− '+fmt(rebate), cls:'red'},{label:'After Rebate', value:fmt(afterRebate)},{label:'Final Tax Payable', value:fmt(finalTax), cls:'total'},{label:'Effective Rate', value:effRate.toFixed(2)+'%'}];
-  document.getElementById('income-result-cells').innerHTML = cells.map(c=>`<div class="rcell"><div class="rcell-label">${c.label}</div><div class="rcell-value ${c.cls||''}">${c.value}</div></div>`).join('');
-  document.getElementById('slab-body').innerHTML = slabRows.map((r,i)=>`<tr><td>${i+1}</td>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-
-function calcINTax(){
-  const regime = document.getElementById('i_regime')?.value || 'new';
-  const income = parseFloat(document.getElementById('i_income').value)||0;
-  const data = IN_TAX_DATA[regime];
-  const stdDed = data.standard_deduction;
-  const taxableIncome = Math.max(0, income - stdDed);
-  const slabs = regime === 'new' ? data.slabs : (document.getElementById('i_cat').value === 'senior' ? data.slabs_senior : data.slabs_general);
-  let tax = 0, slabRows = [];
-  for(let i=0; i<slabs.length; i++){
-    const slab = slabs[i];
-    const lower = slab.min;
-    const upper = slab.max;
-    if(taxableIncome <= lower) { slabRows.push([`${formatINR(lower)} - ${upper===Infinity?'Above':formatINR(upper)}`, `${slab.rate}%`, '₹0', '₹0']); continue; }
-    const taxableInSlab = Math.min(taxableIncome, upper) - lower;
-    if(taxableInSlab <= 0) { slabRows.push([`${formatINR(lower)} - ${upper===Infinity?'Above':formatINR(upper)}`, `${slab.rate}%`, '₹0', fmt(tax)]); continue; }
-    const slabTax = taxableInSlab * (slab.rate/100);
-    tax += slabTax;
-    slabRows.push([`${formatINR(lower)} - ${upper===Infinity?'Above':formatINR(upper)}`, `${slab.rate}%`, fmt(slabTax), fmt(tax)]);
-    if(taxableIncome <= upper) break;
-  }
-  let rebate = 0;
-  if(taxableIncome <= data.rebate_limit) rebate = Math.min(tax, data.rebate_amount);
-  const taxAfterRebate = Math.max(0, tax - rebate);
-  const cess = taxAfterRebate * 0.04;
-  const finalTax = taxAfterRebate + cess;
-  const effRate = income>0?(finalTax/income*100):0;
-  const cells = [{label:'Standard Deduction', value:fmt(stdDed)},{label:'Taxable Income', value:fmt(taxableIncome)},{label:'Gross Tax', value:fmt(tax)},{label:'Rebate (Sec 87A)', value:'− '+fmt(rebate), cls:'red'},{label:'Health & Education Cess (4%)', value:fmt(cess), cls:'red'},{label:'Final Tax Payable', value:fmt(finalTax), cls:'total'},{label:'Effective Rate', value:effRate.toFixed(2)+'%'}];
-  document.getElementById('income-result-cells').innerHTML = cells.map(c=>`<div class="rcell"><div class="rcell-label">${c.label}</div><div class="rcell-value ${c.cls||''}">${c.value}</div></div>`).join('');
-  document.getElementById('slab-body').innerHTML = slabRows.map((r,i)=>`<tr><td>${i+1}</td>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-
-function calcTHTax(){
-  const income = parseFloat(document.getElementById('i_income').value)||0;
-  const personalAllowance = TH_PERSONAL_ALLOWANCE;
-  const employmentDeduction = Math.min(income * (TH_EMPLOYMENT_DEDUCTION.percent/100), TH_EMPLOYMENT_DEDUCTION.cap);
-  const taxableIncome = Math.max(0, income - personalAllowance - employmentDeduction);
-  let tax = 0, slabRows = [];
-  for(let i=0; i<TH_TAX_SLABS.length; i++){
-    const slab = TH_TAX_SLABS[i];
-    const lower = slab.min;
-    const upper = slab.max;
-    if(taxableIncome <= lower) { slabRows.push([`${formatTHB(lower)} - ${upper===Infinity?'Above':formatTHB(upper)}`, `${slab.rate}%`, '฿0', '฿0']); continue; }
-    const taxableInSlab = Math.min(taxableIncome, upper) - lower;
-    if(taxableInSlab <= 0) { slabRows.push([`${formatTHB(lower)} - ${upper===Infinity?'Above':formatTHB(upper)}`, `${slab.rate}%`, '฿0', fmt(tax)]); continue; }
-    const slabTax = taxableInSlab * (slab.rate/100);
-    tax += slabTax;
-    slabRows.push([`${formatTHB(lower)} - ${upper===Infinity?'Above':formatTHB(upper)}`, `${slab.rate}%`, fmt(slabTax), fmt(tax)]);
-    if(taxableIncome <= upper) break;
-  }
-  const effRate = income>0?(tax/income*100):0;
-  const cells = [{label:'Personal Allowance', value:fmt(personalAllowance)},{label:'Employment Deduction (50% up to 100k)', value:fmt(employmentDeduction)},{label:'Taxable Income', value:fmt(taxableIncome)},{label:'Total Income Tax', value:fmt(tax), cls:'total'},{label:'Effective Rate', value:effRate.toFixed(2)+'%'}];
-  document.getElementById('income-result-cells').innerHTML = cells.map(c=>`<div class="rcell"><div class="rcell-label">${c.label}</div><div class="rcell-value ${c.cls||''}">${c.value}</div></div>`).join('');
-  document.getElementById('slab-body').innerHTML = slabRows.map((r,i)=>`<tr><td>${i+1}<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
-}
-
-function calcCATax(){
-  const income = parseFloat(document.getElementById('i_income').value)||0;
-  const basicPersonalAmount = CA_BASIC_PERSONAL_AMOUNT;
-  const taxableIncome = Math.max(0, income - basicPersonalAmount);
-  let tax = 0, slabRows = [];
-  let prevLimit = 0;
-  for(let i=0; i<CA_TAX_SLABS.length; i++){
-    const slab = CA_TAX_SLABS[i];
-    const upper = slab.max;
-    const rate = slab.rate;
-    const taxableInSlab = Math.max(0, Math.min(taxableIncome, upper) - prevLimit);
-    if(taxableInSlab > 0){
-      const slabTax = taxableInSlab * rate;
-      tax += slabTax;
-      slabRows.push([`${formatCAD(prevLimit)} - ${upper===Infinity?'Above':formatCAD(upper)}`, `${(rate*100).toFixed(1)}%`, fmt(slabTax), fmt(tax)]);
-    } else {
-      slabRows.push([`${formatCAD(prevLimit)} - ${upper===Infinity?'Above':formatCAD(upper)}`, `${(rate*100).toFixed(1)}%`, '$0', fmt(tax)]);
+// ========== HELPER FUNCTIONS ==========
+function calculateIncomeTax(countryKey, taxableIncome) {
+    const cfg = CALXSA_DATA[countryKey].tax_slabs;
+    let tax = 0;
+    let remaining = taxableIncome;
+    for (let slab of cfg.slabs) {
+        let low = slab.from === 0 ? 0 : slab.from - 1;
+        let high = slab.to === null ? Infinity : slab.to;
+        if (taxableIncome <= low) continue;
+        let slice = Math.min(remaining, high - low);
+        if (slice > 0) {
+            tax += slice * slab.rate / 100;
+            remaining -= slice;
+        }
+        if (remaining <= 0) break;
     }
-    prevLimit = upper;
-    if(taxableIncome <= upper) break;
-  }
-  const effRate = income>0?(tax/income*100):0;
-  const cells = [{label:'Basic Personal Amount', value:fmt(basicPersonalAmount)},{label:'Taxable Income', value:fmt(taxableIncome)},{label:'Federal Tax Payable', value:fmt(tax), cls:'total'},{label:'Effective Rate', value:effRate.toFixed(2)+'%'}];
-  document.getElementById('income-result-cells').innerHTML = cells.map(c=>`<div class="rcell"><div class="rcell-label">${c.label}</div><div class="rcell-value ${c.cls||''}">${c.value}</div></div>`).join('');
-  document.getElementById('slab-body').innerHTML = slabRows.map((r,i)=>`<tr><td>${i+1}</td>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('');
+    return tax;
 }
 
-function formatINR(n){ if(n===Infinity) return 'Above'; return '₹'+n.toLocaleString('en-IN'); }
-function formatTHB(n){ if(n===Infinity) return 'Above'; return '฿'+n.toLocaleString('en-IN'); }
-function formatCAD(n){ if(n===Infinity) return 'Above'; return '$'+n.toLocaleString('en-IN'); }
+function formatDegrees(deg) { let d = Math.floor(deg); let m = Math.floor((deg % 1) * 60); return `${d}° ${m}'`; }
 
-function calcImport(){
-  const price = parseFloat(document.getElementById('p_price').value)||0;
-  const qty = parseFloat(document.getElementById('p_qty').value)||1;
-  const rate = parseFloat(document.getElementById('p_rate').value)||110;
-  const fc = parseFloat(document.getElementById('p_fc').value)||0;
-  const totalUSD = price*qty;
-  const totalLocal = totalUSD*rate + fc*rate;
-  const cdRate = {finished:25, raw:5, capital:1}[document.getElementById('p_cat').value]||25;
-  const cd = totalLocal * cdRate/100;
-  const vat = (totalLocal+cd)*0.15;
-  const total = totalLocal+cd+vat;
-  document.getElementById('import-result').innerHTML = `
-    <div class="rcell"><div class="rcell-label">Product Value</div><div class="rcell-value">${currentSymbol} ${totalLocal.toLocaleString()}</div></div>
-    <div class="rcell"><div class="rcell-label">Customs Duty (${cdRate}%)</div><div class="rcell-value red">${currentSymbol} ${cd.toLocaleString()}</div></div>
-    <div class="rcell"><div class="rcell-label">VAT (15%)</div><div class="rcell-value red">${currentSymbol} ${vat.toLocaleString()}</div></div>
-    <div class="rcell"><div class="rcell-label total">Total Landed Cost</div><div class="rcell-value total">${currentSymbol} ${total.toLocaleString()}</div></div>`;
+// Natal chart simulation (unchanged, but kept)
+function generateNatalChart(year, month, day, hour, minute, lat, lon, tz) {
+    let seed = year * 372 + month * 31 + day + hour * 60 + minute + Math.floor(lat * 10) + Math.floor(lon * 10);
+    let lagnaLon = seed % 360;
+    let lagnaRasi = Math.floor(lagnaLon / 30);
+    let planets = ["Surya (Sun)","Chandra (Moon)","Mangala (Mars)","Budha (Mercury)","Guru (Jupiter)","Shukra (Venus)","Shani (Saturn)","Rahu (North Node)"];
+    let offsets = [0,180,60,120,240,300,30,210];
+    let rasiNames = ["Mesha (Aries)","Vrishabha (Taurus)","Mithuna (Gemini)","Karka (Cancer)","Simha (Leo)","Kanya (Virgo)","Tula (Libra)","Vrischika (Scorpio)","Dhanu (Sagittarius)","Makara (Capricorn)","Kumbha (Aquarius)","Meena (Pisces)"];
+    let chart = { "Lagna (Ascendant)": { rasi_name: rasiNames[lagnaRasi], deg: lagnaLon % 30, house: 1 } };
+    for (let i=0; i<planets.length; i++) {
+        let lon = (seed + offsets[i]) % 360;
+        let rasi = Math.floor(lon / 30);
+        let deg = lon % 30;
+        let house = (rasi - lagnaRasi + 12) % 12 + 1;
+        chart[planets[i]] = { rasi_name: rasiNames[rasi], deg: deg, house: house };
+    }
+    // Ketu
+    let rahuLon = (seed + offsets[7]) % 360;
+    let ketuLon = (rahuLon + 180) % 360;
+    let ketuRasi = Math.floor(ketuLon / 30);
+    let ketuDeg = ketuLon % 30;
+    let ketuHouse = (ketuRasi - lagnaRasi + 12) % 12 + 1;
+    chart["Ketu (South Node)"] = { rasi_name: rasiNames[ketuRasi], deg: ketuDeg, house: ketuHouse };
+    return chart;
 }
 
-function showTab(id){
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+id)?.classList.add('active');
-  const tabs=['demographics','income','import','freight','vat'];
-  document.querySelectorAll('.ptab')[tabs.indexOf(id)]?.classList.add('active');
+// ========== DOM ELEMENTS & GLOBAL STATE ==========
+const landing = document.getElementById('landingPage');
+const appContainer = document.getElementById('appContainer');
+const pages = {
+    data: document.getElementById('pageData'),
+    sunSign: document.getElementById('pageSunSign'),
+    daily: document.getElementById('pageDaily'),
+    natal: document.getElementById('pageNatal'),
+    reports: document.getElementById('pageReports')
+};
+let currentSunSignIndex = 2; // Gemini default
+let currentChart = null;
+
+document.getElementById('enterBtn').onclick = () => { landing.style.display = 'none'; appContainer.classList.add('active'); };
+function showPage(pageName) { Object.values(pages).forEach(p => p.classList.add('hidden')); pages[pageName].classList.remove('hidden'); }
+
+// Sun sign logic (unchanged)
+const ENGLISH_NAMES = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"];
+function getSunSign(day, month) {
+    if ((month==3 && day>=21)||(month==4 && day<=19)) return 0;
+    if ((month==4 && day>=20)||(month==5 && day<=20)) return 1;
+    if ((month==5 && day>=21)||(month==6 && day<=20)) return 2;
+    if ((month==6 && day>=21)||(month==7 && day<=22)) return 3;
+    if ((month==7 && day>=23)||(month==8 && day<=22)) return 4;
+    if ((month==8 && day>=23)||(month==9 && day<=22)) return 5;
+    if ((month==9 && day>=23)||(month==10 && day<=22)) return 6;
+    if ((month==10 && day>=23)||(month==11 && day<=21)) return 7;
+    if ((month==11 && day>=22)||(month==12 && day<=21)) return 8;
+    if ((month==12 && day>=22)||(month==1 && day<=19)) return 9;
+    if ((month==1 && day>=20)||(month==2 && day<=18)) return 10;
+    return 11;
+}
+function updateSunSign() {
+    let day = parseInt(document.getElementById('day').value);
+    let month = parseInt(document.getElementById('month').value);
+    let signIdx = getSunSign(day, month);
+    currentSunSignIndex = signIdx;
+    document.getElementById('sunSignName').innerText = ENGLISH_NAMES[signIdx];
+    let gridHtml = '';
+    for (let i=0;i<ENGLISH_NAMES.length;i++) gridHtml += `<div class="sign-card" data-sign="${i}">${ENGLISH_NAMES[i]}</div>`;
+    document.getElementById('sunSignGrid').innerHTML = gridHtml;
+    document.querySelectorAll('.sign-card').forEach(card => {
+        card.addEventListener('click', () => {
+            currentSunSignIndex = parseInt(card.dataset.sign);
+            document.getElementById('sunSignName').innerText = ENGLISH_NAMES[currentSunSignIndex];
+            document.getElementById('dailySignTitle').innerText = ENGLISH_NAMES[currentSunSignIndex];
+            document.getElementById('dailyContent').innerHTML = `<p>${getDailyPrediction(currentSunSignIndex)}</p>`;
+        });
+    });
+}
+function getDailyPrediction(idx) { const pred = ["Aries: Energetic day","Taurus: Steady progress","Gemini: Communications flow","Cancer: Emotional clarity","Leo: Creative surge","Virgo: Detail work pays","Libra: Balance needed","Scorpio: Deep insights","Sagittarius: Adventure calls","Capricorn: Discipline brings results","Aquarius: Unusual ideas","Pisces: Intuition high"]; return pred[idx] || "Trust yourself."; }
+
+// Natal chart display (now also shows country‑specific tax/land demo)
+function displayNatalChart() {
+    let day = parseInt(document.getElementById('day').value);
+    let month = parseInt(document.getElementById('month').value);
+    let year = parseInt(document.getElementById('year').value);
+    let hour = parseInt(document.getElementById('hour').value);
+    let minute = parseInt(document.getElementById('minute').value);
+    let lat = parseFloat(document.getElementById('lat').value);
+    let lon = parseFloat(document.getElementById('lon').value);
+    let tz = parseFloat(document.getElementById('tz').value);
+    let country = document.getElementById('countrySelect').value;
+    currentChart = generateNatalChart(year, month, day, hour, minute, lat, lon, tz);
+    let html = `<h3>Planetary Positions</h3><div class="result-grid">`;
+    for (let [body, data] of Object.entries(currentChart)) {
+        html += `<div class="result-card"><strong>${body}</strong><br>${data.rasi_name}<br>${formatDegrees(data.deg)}<br>House ${data.house}</div>`;
+    }
+    html += `</div>`;
+    document.getElementById('natalContent').innerHTML = html;
+    
+    // Country data demo: tax + land
+    const data = CALXSA_DATA[country];
+    if (data) {
+        let demoHtml = `<h3>📊 ${country} Tax & Land Demo</h3>`;
+        // Tax example: calculate on 1,000,000 local currency
+        let sampleIncome = country==="Bangladesh"? 1000000 : (country==="India"? 1200000 : (country==="Thailand"? 600000 : 80000));
+        let tax = calculateIncomeTax(country, sampleIncome);
+        demoHtml += `<p><strong>Income Tax on ${sampleIncome.toLocaleString()} ${data.tax_slabs.currency}:</strong> ${tax.toFixed(2)} ${data.tax_slabs.currency}</p>`;
+        demoHtml += `<p><strong>Land units:</strong> `;
+        data.land_units.forEach(u => { demoHtml += `${u.name} (${u.to_sqft} sqft), `; });
+        demoHtml += `</p>`;
+        if (data.product_data && data.product_data[0]) {
+            let prod = data.product_data[0];
+            demoHtml += `<p><strong>Example product (${prod.description}):</strong> Import duty ${prod.import_tax_percent}%, VAT ${prod.vat_percent}%</p>`;
+        }
+        document.getElementById('countryDataDemo').innerHTML = demoHtml;
+    } else {
+        document.getElementById('countryDataDemo').innerHTML = `<p>No data for ${country}</p>`;
+    }
 }
 
-function downloadHTML(){
-  const name = document.getElementById('c-name').textContent;
-  const content = `<!DOCTYPE html><html><head><title>${name} — Count It Data</title><style>body{font-family:Arial;padding:2rem}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ddd;padding:8px}th{background:#1e4d30;color:#fff}</style></head><body><h1>${name} — Count It Data Export</h1><p>Generated: ${new Date().toLocaleString()}</p>${document.getElementById('tab-demographics').innerHTML}</body></html>`;
-  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([content],{type:'text/html'})); a.download=`${name}_CountIt.html`; a.click();
-}
+// ========== NAVIGATION ==========
+document.getElementById('toSunSignBtn').onclick = () => { updateSunSign(); showPage('sunSign'); };
+document.getElementById('backToDataFromSun').onclick = () => showPage('data');
+document.getElementById('toDailyFromSun').onclick = () => {
+    document.getElementById('dailySignTitle').innerText = ENGLISH_NAMES[currentSunSignIndex];
+    document.getElementById('dailyContent').innerHTML = `<p>${getDailyPrediction(currentSunSignIndex)}</p>`;
+    showPage('daily');
+};
+document.getElementById('backToSunFromDaily').onclick = () => showPage('sunSign');
+document.getElementById('toNatalFromDaily').onclick = () => { displayNatalChart(); showPage('natal'); };
+document.getElementById('toNatalBtn').onclick = () => { displayNatalChart(); showPage('natal'); };
+document.getElementById('backToDataFromNatal').onclick = () => showPage('data');
+document.getElementById('toReportsFromNatal').onclick = () => showPage('reports');
+document.getElementById('backToNatalFromReports').onclick = () => showPage('natal');
+document.getElementById('homeFromReports').onclick = () => showPage('data');
 
-function downloadText(){
-  const name = document.getElementById('c-name').textContent;
-  let txt = `COUNT IT — ${name} Data Export\nGenerated: ${new Date().toLocaleString()}\n\n`;
-  document.querySelectorAll('.sheet').forEach(t=>{ t.querySelectorAll('tr').forEach(r=>{ txt += [...r.querySelectorAll('th,td')].map(c=>c.textContent.trim()).join('\t') + '\n'; }); txt += '\n'; });
-  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'})); a.download=`${name}_CountIt.txt`; a.click();
-}
+// Downloads (unchanged)
+document.getElementById('downloadNatalBtn').onclick = () => {
+    let content = document.getElementById('natalContent').innerHTML;
+    let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Shivanetra Natal Chart</title><style>body{font-family:monospace;padding:40px;}</style></head><body>${content}</body></html>`;
+    let blob = new Blob([html], {type:'text/html'});
+    let a = document.createElement('a');
+    a.download = `shivanetra_natal_${Date.now()}.html`;
+    a.href = URL.createObjectURL(blob);
+    a.click();
+    URL.revokeObjectURL(a.href);
+};
+document.getElementById('downloadDailyBtn').onclick = () => {
+    let content = document.getElementById('dailyContent').innerHTML;
+    let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Shivanetra Daily Prediction</title><style>body{font-family:monospace;padding:40px;}</style></head><body>${content}</body></html>`;
+    let blob = new Blob([html], {type:'text/html'});
+    let a = document.createElement('a');
+    a.download = `shivanetra_daily_${Date.now()}.html`;
+    a.href = URL.createObjectURL(blob);
+    a.click();
+    URL.revokeObjectURL(a.href);
+};
 
-renderCountries(COUNTRIES);
-calcIncomeTax();
+// Initial load
+updateSunSign();
+displayNatalChart();
+document.getElementById('dailySignTitle').innerText = ENGLISH_NAMES[currentSunSignIndex];
+document.getElementById('dailyContent').innerHTML = `<p>${getDailyPrediction(currentSunSignIndex)}</p>`;
+
+// Make sure country selection triggers update of the demo on Natal page (if already there)
+document.getElementById('countrySelect').addEventListener('change', () => {
+    if (!pages.natal.classList.contains('hidden')) displayNatalChart();
+});
 </script>
 </body>
 </html>
